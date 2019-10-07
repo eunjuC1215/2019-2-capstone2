@@ -42,17 +42,17 @@
                 android:orientation="vertical">
 
                 <EditText
+                    android:id="@+id/idText"
                     android:layout_width="280dp"
                     android:layout_height="wrap_content"
-                    android:hint="학번"
                     android:layout_gravity="center"
-                    android:padding="10dp"
-                    android:textColor="#ffffff"
-                    android:textColorHint="#ffffff"
-                    android:id="@+id/idText"
                     android:layout_marginTop="50dp"
                     android:background="@color/colorPrimary"
-                    />
+                    android:hint="학번"
+                    android:inputType="number"
+                    android:padding="10dp"
+                    android:textColor="#ffffff"
+                    android:textColorHint="#ffffff" />
 
                 <EditText
                     android:inputType="textPassword"
