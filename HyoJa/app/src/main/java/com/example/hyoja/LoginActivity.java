@@ -109,8 +109,10 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params){
+            AES aes = new AES();
             String id = params[0];
-            String pw = params[1];
+            String pw = aes.encrypt(params[1]);
+
 
             String server_url = "http://13.124.28.135/check.php";
             String postParameters = "id=" + id + "&pw=" + pw;
