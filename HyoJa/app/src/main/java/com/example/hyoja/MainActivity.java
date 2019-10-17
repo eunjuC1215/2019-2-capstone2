@@ -12,17 +12,26 @@ public class MainActivity extends AppCompatActivity {
 
     private Button scanQRBtn;
     private Button logout;
+    private Button reserve;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        scanQRBtn = (Button) findViewById(R.id.scanQR);
+        scanQRBtn = (Button)findViewById(R.id.scanQR);
 
         scanQRBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Intent intent = new Intent(MainActivity.this, ScanQR.class);
+                startActivity(intent);
+            }
+        });
+
+        reserve = findViewById(R.id.reserve);
+        reserve.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent(MainActivity.this, ReserveActivity.class);
                 startActivity(intent);
             }
         });

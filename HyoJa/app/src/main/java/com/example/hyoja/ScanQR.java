@@ -33,5 +33,7 @@ public class ScanQR extends AppCompatActivity {
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+        Intent reserveIntent = new Intent(ScanQR.this, MainActivity.class);
+        ScanQR.this.startActivity(reserveIntent);
     }
 }

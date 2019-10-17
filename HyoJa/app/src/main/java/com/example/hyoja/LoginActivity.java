@@ -54,6 +54,9 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
+                LoginActivity.this.startActivity(loginIntent);
+                /*
                 if(autoLogin.isChecked()){
                     autologin_check = true;
                 }else{
@@ -61,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 Check check = new Check();
                 check.execute(EditText_id.getText().toString(), EditText_pw.getText().toString());
+                */
             }
         });
 
