@@ -55,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
+                loginIntent.putExtra("student_no",loginID);
                 LoginActivity.this.startActivity(loginIntent);
                 /*
                 if(autoLogin.isChecked()){
