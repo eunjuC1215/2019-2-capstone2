@@ -87,7 +87,11 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String s){
             super.onPostExecute(s);
             progressDialog.dismiss();
-            Toast.makeText(MainActivity.this, s, Toast.LENGTH_SHORT).show();
+            if(s.equals("Success")){
+                Toast.makeText(MainActivity.this, "예약이 취소되었습니다.", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(MainActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override
