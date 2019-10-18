@@ -30,6 +30,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="예약 확정" />
+
+        <Button
+            android:id="@+id/reserveCancle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="예약 취소" />
     </LinearLayout>
 
     <Button
@@ -39,7 +46,9 @@
         android:text="로그아웃"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.606" />
 
 </android.support.constraint.ConstraintLayout>

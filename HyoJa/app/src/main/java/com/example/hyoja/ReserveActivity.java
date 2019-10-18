@@ -1,8 +1,10 @@
 package com.example.hyoja;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -71,6 +74,7 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(final View v) {
         if(isSelected == false){
             if((int) v.getTag() == STATUS_AVAILABLE){
+                final String seat_no = Integer.toString(v.getId());
                 selectedIds = selectedIds + v.getId() + ", ";
                 v.setBackgroundResource(R.drawable.ic_seats_selected);
                 isSelected = true;
@@ -84,8 +88,8 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(getApplicationContext(), "예약되었습니다.", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(ReserveActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
+                        sendReserveInfo send_reserve_info = new sendReserveInfo();
+                        send_reserve_info.execute(seat_no);
                     }
                 });
 
@@ -96,6 +100,8 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
                         selectedIds = selectedIds.replace(+v.getId() + ",", "");
                         v.setBackgroundResource(R.drawable.ic_seats_available);
                         isSelected = false;
+                        finish();
+                        startActivity(getIntent());
                     }
                 });
 
@@ -199,6 +205,84 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    public class sendReserveInfo extends AsyncTask<String, Void, String>{
+
+        ProgressDialog progressDialog;
+        String errorString;
+
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+            progressDialog = ProgressDialog.show(ReserveActivity.this, "Please wait...", null, true, true);
+        }
+
+        @Override
+        protected void onPostExecute(String s){
+            super.onPostExecute(s);
+            progressDialog.dismiss();
+            if(s.equals("Success")){
+                Intent intent = new Intent(ReserveActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }else{
+                Toast.makeText(ReserveActivity.this, s + "다른 사람이 먼저 예약했습니다.", Toast.LENGTH_LONG).show();
+                startActivity(getIntent());
+            }
+        }
+
+        @Override
+        protected String doInBackground(String... params){
+            SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+            String loginID = auto.getString("ID", null);
+            String seatNo = params[0];
+            String server_url = "http://13.124.28.135/reserve.php";
+            String postParameters = "student_no=" + loginID + "&&seat_no=" + seatNo + "&&reserve_opt=1";
+
+            try{
+                URL url = new URL(server_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.connect();
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+
+                InputStream inputStream;
+                if(responseStatusCode == httpURLConnection.HTTP_OK){
+                    inputStream = httpURLConnection.getInputStream();
+                }else{
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line;
+
+                while((line = bufferedReader.readLine()) != null){
+                    sb.append(line);
+                }
+
+                bufferedReader.close();
+
+                return sb.toString().trim();
+            }catch (Exception e){
+                errorString = e.toString();
+                return null;
+            }
+        }
+
+    }
+
     public class getSeatsData extends AsyncTask<String, Void, String>{
         ProgressDialog progressDialog;
         String errorString;
@@ -212,7 +296,10 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
         @Override
         protected String doInBackground(String... params) {
 
+            SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+            String loginID = auto.getString("ID", null);
             String server_url = "http://13.124.28.135/getSeatsData.php";
+            String postParameters = "student_no=" + loginID;
 
             try{
                 URL url = new URL(server_url);
@@ -223,6 +310,11 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoInput(true);
                 httpURLConnection.connect();
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
 
                 int responseStatusCode = httpURLConnection.getResponseCode();
 
@@ -256,7 +348,12 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
         protected void onPostExecute(String s){
             super.onPostExecute(s);
             progressDialog.dismiss();
-            drawSeats(s);
+            if(s.equals("Exist")){
+                Toast.makeText(ReserveActivity.this, "예약한 좌석이 있습니다.\n 예약확정을 해주세요", Toast.LENGTH_LONG).show();
+                finish();
+            }else{
+                drawSeats(s);
+            }
         }
     }
 }
