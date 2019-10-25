@@ -31,7 +31,9 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
 
     ViewGroup layout;
 
-    public static String seats = "000_00_000/"
+    public static String seats ="++++++++ㅕㅑ/"
+            +"__________/"
+            +"000_00_000/"
             +"000_00_000/"
             +"____00____/"
             +"____00____/"
@@ -48,7 +50,9 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
             +"____00____/"
             +"____00____/"
             +"000_00_000/"
-            +"000_00_000/";
+            +"000_00_000/"
+            +"__________/"
+            +"--------ㅓㅏ/";
 
     List<TextView> seatViewList = new ArrayList<>();
     int seatSize = 100;
@@ -90,6 +94,7 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
                         Intent intent = new Intent(ReserveActivity.this, MainActivity.class);
                         sendReserveInfo send_reserve_info = new sendReserveInfo();
                         send_reserve_info.execute(seat_no);
+                        finish();
                     }
                 });
 
@@ -153,7 +158,7 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
                 view.setGravity(Gravity.CENTER);
                 view.setBackgroundResource(R.drawable.ic_seats_available);
                 view.setText(count + "");
-                view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 9);
+                view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 11);
                 view.setTextColor(Color.BLACK);
                 view.setTag(STATUS_AVAILABLE);
                 layout.addView(view);
@@ -172,7 +177,7 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
                 view.setTextColor(Color.WHITE);
                 view.setTag(STATUS_BOOKED);
                 view.setText(count + "");
-                view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 9);
+                view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 11);
                 layout.addView(view);
                 seatViewList.add(view);
                 view.setOnClickListener(ReserveActivity.this);
@@ -187,7 +192,7 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
                 view.setGravity(Gravity.CENTER);
                 view.setBackgroundResource(R.drawable.ic_seats_reserved);
                 view.setText(count + "");
-                view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 9);
+                view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 11);
                 view.setTextColor(Color.WHITE);
                 view.setTag(STATUS_RESERVED);
                 layout.addView(view);
@@ -199,6 +204,61 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
                 layoutParams.setMargins(seatGaping, seatGaping, seatGaping, seatGaping);
                 view.setLayoutParams(layoutParams);
                 view.setBackgroundColor(Color.TRANSPARENT);
+                view.setText("");
+                layout.addView(view);
+            } else if (seats.charAt(index) == '+') {
+                TextView view = new TextView(ReserveActivity.this);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(seatSize, seatSize);
+                layoutParams.setMargins(seatGaping, seatGaping, seatGaping, seatGaping);
+                view.setLayoutParams(layoutParams);
+                //view.setBackgroundColor(Color.TRANSPARENT);
+                view.setBackgroundResource(R.drawable.ic_wall_front);
+                view.setText("");
+                layout.addView(view);
+            }
+            else if (seats.charAt(index) == '-') {
+                TextView view = new TextView(ReserveActivity.this);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(seatSize, seatSize);
+                layoutParams.setMargins(seatGaping, seatGaping, seatGaping, seatGaping);
+                view.setLayoutParams(layoutParams);
+                //view.setBackgroundColor(Color.TRANSPARENT);
+                view.setBackgroundResource(R.drawable.ic_wall_back);
+                view.setText("");
+                layout.addView(view);
+            } else if (seats.charAt(index) == 'ㅓ') {
+                TextView view = new TextView(ReserveActivity.this);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(seatSize, seatSize);
+                layoutParams.setMargins(seatGaping, seatGaping, seatGaping, seatGaping);
+                view.setLayoutParams(layoutParams);
+                //view.setBackgroundColor(Color.TRANSPARENT);
+                view.setBackgroundResource(R.drawable.ic_door_back_left);
+                view.setText("");
+                layout.addView(view);
+            } else if (seats.charAt(index) == 'ㅏ') {
+                TextView view = new TextView(ReserveActivity.this);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(seatSize, seatSize);
+                layoutParams.setMargins(seatGaping, seatGaping, seatGaping, seatGaping);
+                view.setLayoutParams(layoutParams);
+                //view.setBackgroundColor(Color.TRANSPARENT);
+                view.setBackgroundResource(R.drawable.ic_door_back_right);
+                view.setText("");
+                layout.addView(view);
+            } else if (seats.charAt(index) == 'ㅕ') {
+                TextView view = new TextView(ReserveActivity.this);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(seatSize, seatSize);
+                layoutParams.setMargins(seatGaping, seatGaping, seatGaping, seatGaping);
+                view.setLayoutParams(layoutParams);
+                //view.setBackgroundColor(Color.TRANSPARENT);
+                view.setBackgroundResource(R.drawable.ic_door_front_left);
+                view.setText("");
+                layout.addView(view);
+            } else if (seats.charAt(index) == 'ㅑ') {
+                TextView view = new TextView(ReserveActivity.this);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(seatSize, seatSize);
+                layoutParams.setMargins(seatGaping, seatGaping, seatGaping, seatGaping);
+                view.setLayoutParams(layoutParams);
+                //view.setBackgroundColor(Color.TRANSPARENT);
+                view.setBackgroundResource(R.drawable.ic_door_front_right);
                 view.setText("");
                 layout.addView(view);
             }

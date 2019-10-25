@@ -9,7 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -21,11 +24,16 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity {
 
     private Button scanQRBtn, logout, reserve, reserveCancle;
+    private TextView seatNo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        seatNo = findViewById(R.id.seatNo);
+        isReserve isreserve = new isReserve();
+        isreserve.execute();
 
         scanQRBtn = (Button) findViewById(R.id.scanQR);
 
@@ -67,9 +75,81 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 sendReserveInfo send_reserve_info = new sendReserveInfo();
                 send_reserve_info.execute();
-
+                seatNo.setText("--");
             }
         });
+    }
+
+    public class isReserve extends AsyncTask<String, Void, String> {
+        ProgressDialog progressDialog;
+        String errorString;
+
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+            progressDialog = ProgressDialog.show(MainActivity.this, "Please wait...", null, true, true);
+        }
+
+        @Override
+        protected String doInBackground(String... params){
+            SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+            String loginID = auto.getString("ID", null);
+            String server_url = "http://13.124.28.135/isReserve.php";
+            String postParameters = "student_no=" + loginID;
+
+            try{
+                URL url = new URL(server_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.connect();
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+
+                InputStream inputStream;
+                if(responseStatusCode == httpURLConnection.HTTP_OK){
+                    inputStream = httpURLConnection.getInputStream();
+                }else{
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line;
+
+                while((line = bufferedReader.readLine()) != null){
+                    sb.append(line);
+                }
+
+                bufferedReader.close();
+
+                return sb.toString().trim();
+            }catch (Exception e){
+                errorString = e.toString();
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String s){
+            super.onPostExecute(s);
+            progressDialog.dismiss();
+            if(s.equals("")){
+                seatNo.setText("--");
+            }else {
+                seatNo.setText(s);
+            }
+        }
     }
 
     public class sendReserveInfo extends AsyncTask<String, Void, String> {
