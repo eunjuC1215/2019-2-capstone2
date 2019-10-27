@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.BoringLayout;
 import android.view.View;
 import android.view.ViewDebug;
 import android.widget.Button;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private Button scanQRBtn, logout, reserve, reserveCancle;
     private TextView seatNo, time;
     public TimerTask timer;
-
+    public Boolean isReserve = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         isreserve.execute();
 
         time = findViewById(R.id.timeInfo);
-        timer = null;
 
         scanQRBtn = (Button) findViewById(R.id.scanQR);
 
@@ -95,6 +95,8 @@ public class MainActivity extends AppCompatActivity {
                 }else {
                     sendReserveInfo send_reserve_info = new sendReserveInfo();
                     send_reserve_info.execute();
+                    timer.cancel();
+                    timer = null;
                     seatNo.setText("--");
                     time.setText("--:--");
                 }
@@ -173,16 +175,22 @@ public class MainActivity extends AppCompatActivity {
             }else {
                 String[] str = s.split("_");
                 seatNo.setText(str[0]);
-                long now = System.currentTimeMillis();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                long t=0;
+                long now = System.currentTimeMillis();
                 Date nowT = new Date(now);
                 String nowTime = sdf.format(nowT);
 
-                long st = getSeconds(str[1]);
-                long ct = getSeconds(nowTime);
-                long t = (300 - (ct - st))*1000;
-
-                //timer = new Timer();
+                if(str[3].equals("1")) {
+                    long st = getSeconds(str[1]);
+                    long ct = getSeconds(nowTime);
+                    t = (300 - (ct - st)) * 1000;
+                }
+                else{
+                    long end_time = getSeconds(str[2]);
+                    long now_time = getSeconds(nowTime);
+                    t = ((end_time - now_time)*1000);
+                }
                 timer = new Timer(t);
                 timer.run();
             }

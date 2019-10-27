@@ -33,8 +33,8 @@ public class ScanQR extends AppCompatActivity {
 
         new IntentIntegrator(this).initiateScan();
 
-        Intent intent = getIntent();
-        student_no = intent.getStringExtra("student_no");
+        SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+        student_no = auto.getString("ID", null);
     }
 
     @Override
@@ -47,14 +47,6 @@ public class ScanQR extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
                 seat_no = result.getContents();
-                /*
-                //좌석 번호 변수로 저장
-                SharedPreferences reserve = getSharedPreferences("seat", Activity.MODE_PRIVATE);
-                SharedPreferences.Editor editor = reserve.edit();
-
-                editor.putString("NUM", result.getContents());
-                editor.commit();
-                */
                 GetData task = new GetData();
                 task.execute(student_no, seat_no);
             }
