@@ -9,9 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -23,9 +21,7 @@ import java.net.URL;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText EditText_id, EditText_pw;
-    private CheckBox autoLogin;
     String loginID, loginPW;
-    Boolean autologin_check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +30,6 @@ public class LoginActivity extends AppCompatActivity {
 
         EditText_id = findViewById(R.id.idText);
         EditText_pw = findViewById(R.id.passwordText);
-        autoLogin = findViewById(R.id.autoLogin);
 
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
 
@@ -54,28 +49,9 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
-                loginIntent.putExtra("student_no",loginID);
-                LoginActivity.this.startActivity(loginIntent);
-                /*
-                if(autoLogin.isChecked()){
-                    autologin_check = true;
-                }else{
-                    autologin_check = false;
-                }
+
                 Check check = new Check();
                 check.execute(EditText_id.getText().toString(), EditText_pw.getText().toString());
-                */
-            }
-        });
-
-        TextView registerButton = findViewById(R.id.registerButton);
-
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
-                LoginActivity.this.startActivity(registerIntent);
             }
         });
     }
@@ -97,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 
             if(s.equals("Success")){
-                if(loginID == null && loginPW == null && autologin_check){
+                if(loginID == null && loginPW == null){
                     SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
                     SharedPreferences.Editor editor = auto.edit();
 
@@ -106,18 +82,19 @@ public class LoginActivity extends AppCompatActivity {
                     editor.commit();
                 }
                 startActivity(intent);
-                Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
             }else{
-                Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
             }
+
         }
 
         @Override
         protected String doInBackground(String... params){
             AES aes = new AES();
             String id = params[0];
-            String pw = aes.encrypt(params[1]);
-
+            String pw = params[1];
+            pw = aes.encrypt(pw);
 
             String server_url = "http://13.124.28.135/check.php";
             String postParameters = "id=" + id + "&pw=" + pw;
