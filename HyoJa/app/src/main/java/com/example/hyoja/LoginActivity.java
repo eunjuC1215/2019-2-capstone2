@@ -87,6 +87,8 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
             }
 
+
+
         }
 
         @Override
@@ -138,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
                 return sb.toString().trim();
             }catch (Exception e){
                 errorString = e.toString();
-                return null;
+                return errorString;
             }
         }
     }
