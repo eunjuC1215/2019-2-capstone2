@@ -1,12 +1,20 @@
 package com.example.hyoja;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.CountDownTimer;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -268,6 +276,9 @@ public class MainActivity extends AppCompatActivity {
                         int m = (int)millisUntilFinished / 60000;
                         int s = ((int)millisUntilFinished - m*60000)/1000;
                         time.setText(m+":"+s);
+                        if(m == 10 && s == 0){
+                            createNotification();
+                        }
                     }
                 }
 
@@ -282,6 +293,33 @@ public class MainActivity extends AppCompatActivity {
             countDownTimer.start();
         }
 
+
+    }
+
+    private void createNotification() {
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default");
+
+        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setContentTitle("효자시스템 : 좌석 연장");
+        builder.setContentText("예약 시간 10분 남았습니다.");
+        builder.setDefaults(1);
+        builder.setColor(Color.RED);
+        // 사용자가 탭을 클릭하면 자동 제거
+        builder.setAutoCancel(true);
+        builder.setContentIntent(PendingIntent.getActivity(MainActivity.this, 0,
+                new Intent(getApplicationContext(),MainActivity.class),
+                PendingIntent.FLAG_UPDATE_CURRENT));
+
+        // 알림 표시
+        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationManager.createNotificationChannel(new NotificationChannel("default", "기본 채널", NotificationManager.IMPORTANCE_DEFAULT));
+        }
+
+        // id값은
+        // 정의해야하는 각 알림의 고유한 int값
+        notificationManager.notify(1, builder.build());
     }
 
     public class sendReserveInfo extends AsyncTask<String, Void, String> {
