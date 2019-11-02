@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView seatNo, time;
     public TimerTask timer;
     public Boolean isReserve = false;
+    public String timecheck;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,8 +135,18 @@ public class MainActivity extends AppCompatActivity {
                 if(seatNo.getText() == "--"){
                     Toast.makeText(MainActivity.this, "연장할 좌석이 없습니다", Toast.LENGTH_SHORT).show();
                 }else {
-                    extendReserve extend_reserve = new extendReserve();
-                    extend_reserve.execute();
+                    timecheck = time.getText().toString();
+                    int hour = Integer.parseInt(timecheck.substring(0, timecheck.indexOf(":")));
+
+                    if(hour < 10){
+                        extendReserve extend_reserve = new extendReserve();
+                        extend_reserve.execute();
+                        finish(); startActivity(getIntent());
+                    }
+                    else{
+                        Toast.makeText(MainActivity.this, "연장은 10분 전부터 가능합니다.", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
             }
         });
