@@ -34,7 +34,7 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button scanQRBtn, logout, reserve, reserveCancle;
+    private Button scanQRBtn, logout, reserve, reserveCancle, extend;
     private TextView seatNo, time;
     public TimerTask timer;
     public Boolean isReserve = false;
@@ -123,6 +123,19 @@ public class MainActivity extends AppCompatActivity {
                     timer = null;
                     seatNo.setText("--");
                     time.setText("--:--");
+                }
+            }
+        });
+
+        extend = findViewById(R.id.extend);
+        extend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(seatNo.getText() == "--"){
+                    Toast.makeText(MainActivity.this, "연장할 좌석이 없습니다", Toast.LENGTH_SHORT).show();
+                }else {
+                    extendReserve extend_reserve = new extendReserve();
+                    extend_reserve.execute();
                 }
             }
         });
@@ -329,6 +342,80 @@ public class MainActivity extends AppCompatActivity {
             }catch (Exception e){
                 errorString = e.toString();
                 return null;
+            }
+        }
+
+    }
+
+    public class extendReserve extends AsyncTask<String, Void, String> {
+
+        ProgressDialog progressDialog;
+        String errorString;
+
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+            progressDialog = ProgressDialog.show(MainActivity.this, "Please wait...", null, true, true);
+        }
+
+        @Override
+        protected void onPostExecute(String s){
+            super.onPostExecute(s);
+            progressDialog.dismiss();
+            if(s.equals("Success")){
+                Toast.makeText(MainActivity.this, "좌석이 연장되었습니다.", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        protected String doInBackground(String... params){
+            SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+            String loginID = auto.getString("ID", null);
+            String server_url = "http://13.124.28.135/extend.php";
+            String postParameters = "student_no=" + loginID;
+
+            try{
+                URL url = new URL(server_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.connect();
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+
+                InputStream inputStream;
+                if(responseStatusCode == httpURLConnection.HTTP_OK){
+                    inputStream = httpURLConnection.getInputStream();
+                }else{
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line;
+
+                while((line = bufferedReader.readLine()) != null){
+                    sb.append(line);
+                }
+
+                bufferedReader.close();
+
+                return sb.toString().trim();
+            }catch (Exception e){
+                errorString = e.toString();
+                return errorString;
             }
         }
 
