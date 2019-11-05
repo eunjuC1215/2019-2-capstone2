@@ -20,26 +20,38 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         ID.layer.cornerRadius = 10
         PW.layer.cornerRadius = 10
         LoginButton.layer.cornerRadius = 10
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        var id: String
+        var pw: String
+        
+        if let UserId = UserDefaults.standard.string(forKey: "id"){
+            id = UserId
+            pw = UserDefaults.standard.string(forKey: "pw")!
+            ID.text = id
+            PW.text = pw
+            data_request("http://13.124.28.135/check.php", id: ID.text!, pw: PW.text!)
+        }
+    }
 
     @IBAction func touchUpLoginButton(_ sender: UIButton){
+        data_request("http://13.124.28.135/check.php", id: ID.text!, pw: PW.text!)
+    }
+    
+    func data_request(_ url:String, id:String, pw:String)
+    {
         let key = "################################"
         let iv = "################"
         var cipher = ""
         do{
             let aes = try! AES(key: key.bytes, blockMode: CBC(iv: iv.bytes) , padding: .pkcs5)
-            cipher = try aes.encrypt(Array(PW.text!.utf8)).toBase64()!
+            cipher = try aes.encrypt(Array(pw.utf8)).toBase64()!
         }catch{}
-
-        data_request("http://13.124.28.135/check.php", id: ID.text!, pw: cipher)
-    }
-    
-    func data_request(_ url:String, id:String, pw:String)
-    {
+        
         let url:NSURL = NSURL(string: url)!
         let session = URLSession.shared
 
@@ -48,7 +60,7 @@ class ViewController: UIViewController {
         let request = NSMutableURLRequest(url: url as URL)
         request.httpMethod = "POST"
 
-        let paramString = "id="+id+"&pw="+pw
+        let paramString = "id="+id+"&pw="+cipher
         request.httpBody = paramString.data(using: String.Encoding.utf8)
 
         let task = session.dataTask(with: request as URLRequest) {
@@ -60,7 +72,7 @@ class ViewController: UIViewController {
                 return
             }
 
-            if var dataString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            if let dataString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
             {
                 if(dataString as String == "Success"){
                     isLogin = true
@@ -70,16 +82,16 @@ class ViewController: UIViewController {
         }
         
         task.resume()
-        
         repeat {
             RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
         } while !done
         
         if(isLogin){
+            UserDefaults.standard.set(ID.text!, forKey: "id")
+            UserDefaults.standard.set(PW.text!, forKey: "pw")
             let mainPage = self.storyboard?.instantiateViewController(identifier: "Main")
             mainPage?.modalPresentationStyle = .fullScreen
             self.present(mainPage!, animated: true, completion: nil)
         }
     }
-
 }

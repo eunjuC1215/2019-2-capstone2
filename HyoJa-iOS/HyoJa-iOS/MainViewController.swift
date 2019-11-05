@@ -27,6 +27,8 @@ class MainViewController: UIViewController {
     
     // MARK: @IBAction
     @IBAction func Logout(_ sender: UIButton){
+        UserDefaults.standard.removeObject(forKey: "id")
+        UserDefaults.standard.removeObject(forKey: "pw")
         let loginPage = self.storyboard?.instantiateViewController(identifier: "Login")
         loginPage?.modalPresentationStyle = .fullScreen
         self.present(loginPage!, animated: true, completion: nil)
