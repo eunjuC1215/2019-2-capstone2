@@ -21,8 +21,12 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        seatReserve.layer.cornerRadius = 10
+        QRscaner.layer.cornerRadius = 10
+        reserveCancle.layer.cornerRadius = 10
+        reserveExtension.layer.cornerRadius = 10
+        Logout.layer.cornerRadius = 10
     }
     
     // MARK: @IBAction
