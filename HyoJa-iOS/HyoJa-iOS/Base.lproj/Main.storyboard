@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -109,6 +109,9 @@
                                 <state key="normal" title="예약확정">
                                     <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 </state>
+                                <connections>
+                                    <action selector="CaptureImageFromCamera:" destination="cPO-lW-Dz5" eventType="touchUpInside" id="GHd-VI-z3f"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tj4-zc-Ee4">
                                 <rect key="frame" x="33" y="632" width="126" height="54"/>
@@ -151,7 +154,6 @@
                     <connections>
                         <outlet property="Logout" destination="COB-GJ-5P7" id="rjX-KD-LWv"/>
                         <outlet property="QRscaner" destination="EU1-IC-W5t" id="mXS-Gx-CXT"/>
-                        <outlet property="reserveCancle" destination="tj4-zc-Ee4" id="lUC-r1-mgN"/>
                         <outlet property="reserveExtension" destination="YOe-Ek-jVa" id="ySt-Yf-pTb"/>
                         <outlet property="seatNo" destination="PVn-UK-Cb5" id="aAh-kX-hmy"/>
                         <outlet property="seatReserve" destination="STA-DR-TN5" id="84K-dj-d2T"/>
