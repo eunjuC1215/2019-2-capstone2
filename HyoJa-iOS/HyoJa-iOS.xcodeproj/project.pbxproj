@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		75122E5323839CA10009F4D1 /* QRScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75122E5223839CA10009F4D1 /* QRScanViewController.swift */; };
+		75122E5523839CBD0009F4D1 /* ReserveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75122E5423839CBD0009F4D1 /* ReserveViewController.swift */; };
 		752CE6EC236FFED80071305A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752CE6EB236FFED80071305A /* AppDelegate.swift */; };
 		752CE6EE236FFED80071305A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752CE6ED236FFED80071305A /* SceneDelegate.swift */; };
 		752CE6F0236FFED80071305A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752CE6EF236FFED80071305A /* ViewController.swift */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		75122E5223839CA10009F4D1 /* QRScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScanViewController.swift; sourceTree = "<group>"; };
+		75122E5423839CBD0009F4D1 /* ReserveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReserveViewController.swift; sourceTree = "<group>"; };
 		752CE6E8236FFED80071305A /* HyoJa-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HyoJa-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		752CE6EB236FFED80071305A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		752CE6ED236FFED80071305A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -68,6 +72,8 @@
 				752CE6F4236FFEDA0071305A /* Assets.xcassets */,
 				752CE6F6236FFEDA0071305A /* LaunchScreen.storyboard */,
 				752CE6F9236FFEDA0071305A /* Info.plist */,
+				75122E5223839CA10009F4D1 /* QRScanViewController.swift */,
+				75122E5423839CBD0009F4D1 /* ReserveViewController.swift */,
 			);
 			path = "HyoJa-iOS";
 			sourceTree = "<group>";
@@ -152,7 +158,9 @@
 				752CE6F0236FFED80071305A /* ViewController.swift in Sources */,
 				752CE6EC236FFED80071305A /* AppDelegate.swift in Sources */,
 				752CE6EE236FFED80071305A /* SceneDelegate.swift in Sources */,
+				75122E5323839CA10009F4D1 /* QRScanViewController.swift in Sources */,
 				752CE700237005880071305A /* MainViewController.swift in Sources */,
+				75122E5523839CBD0009F4D1 /* ReserveViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

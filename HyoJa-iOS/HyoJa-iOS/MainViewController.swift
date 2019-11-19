@@ -16,7 +16,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     @IBOutlet var timer: UITextView!
     @IBOutlet var seatReserve: UIButton!
     @IBOutlet var QRscaner: UIButton!
-    //@IBOutlet var reserveCancle: UIButton!
+    @IBOutlet var reserveCancle: UIButton!
     @IBOutlet var reserveExtension: UIButton!
     @IBOutlet var Logout: UIButton!
     
@@ -55,12 +55,18 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         
         seatReserve.layer.cornerRadius = 10
         QRscaner.layer.cornerRadius = 10
-        //reserveCancle.layer.cornerRadius = 10
+        reserveCancle.layer.cornerRadius = 10
         reserveExtension.layer.cornerRadius = 10
         Logout.layer.cornerRadius = 10
     }
     
     // MARK: @IBAction
+    
+    @IBAction func QRscan(_ sender: UIButton){
+        let qrscanPage = self.storyboard?.instantiateViewController(identifier: "QRScan")
+        self.present(qrscanPage!, animated: true, completion: nil)
+    }
+    
     @IBAction func Logout(_ sender: UIButton){
         UserDefaults.standard.removeObject(forKey: "id")
         UserDefaults.standard.removeObject(forKey: "pw")
