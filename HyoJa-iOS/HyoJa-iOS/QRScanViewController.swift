@@ -101,7 +101,36 @@ class QRScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     }
 
     func found(code: String) {
-        print(code)
+        let id = UserDefaults.standard.string(forKey: "id")
+        reserve_request("http://13.124.28.135/updateSeat.php", id: id!, seat_no: code)
+        print(id!+code)
+    }
+    
+    func reserve_request(_ url:String, id:String, seat_no:String)
+    {
+        let url:NSURL = NSURL(string: url)!
+        let session = URLSession.shared
+        
+        let request = NSMutableURLRequest(url: url as URL)
+        request.httpMethod = "POST"
+
+        let paramString = "student_no="+id+"&seat_no="+seat_no
+        request.httpBody = paramString.data(using: String.Encoding.utf8)
+
+        let task = session.dataTask(with: request as URLRequest) {
+            (
+            data, response, error) in
+
+            guard let _:NSData = data as NSData?, let _:URLResponse = response, error == nil else {
+                 print(error?.localizedDescription ?? "No data")
+                return
+            }
+
+            if NSString(data: data!, encoding: String.Encoding.utf8.rawValue) != nil
+            {}
+        }
+        
+        task.resume()
     }
     
     override var prefersStatusBarHidden: Bool {
