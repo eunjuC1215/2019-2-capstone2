@@ -55,7 +55,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         
         seatReserve.layer.cornerRadius = 10
         QRscaner.layer.cornerRadius = 10
-        reserveCancle.layer.cornerRadius = 10
+        //reserveCancle.layer.cornerRadius = 10
         reserveExtension.layer.cornerRadius = 10
         Logout.layer.cornerRadius = 10
     }
@@ -113,4 +113,9 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         self.present(loginPage!, animated: true, completion: nil)
     }
 
+    @IBAction func TouchReserve(_ sender: UIButton) {
+        let reservePage = self.storyboard?.instantiateViewController(identifier: "Reserve")
+        reservePage?.modalPresentationStyle = .fullScreen
+        self.present(reservePage!, animated: true, completion: nil)
+    }
 }
