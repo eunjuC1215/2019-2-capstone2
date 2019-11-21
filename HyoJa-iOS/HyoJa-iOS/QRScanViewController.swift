@@ -57,11 +57,18 @@ class QRScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         
         preview.layer.addSublayer(previewLayer)
         
-        let cancleButton = UIButton(frame: CGRect(x:0, y:0, width: 100, height: 100))
-        cancleButton.backgroundColor = .green
+        let cancleButton = UIButton(frame: CGRect(x:10, y:10, width: 100, height: 20))
+        cancleButton.backgroundColor = .red
+        cancleButton.layer.cornerRadius = 10
+        cancleButton.setTitle("Cancle", for: .normal)
+        cancleButton.addTarget(self, action: #selector(returnMain(_:)), for: .touchUpInside)
         view.addSubview(cancleButton)
         
         captureSession.startRunning()
+    }
+    
+    @IBAction func returnMain(_ sender: UIButton){
+        self.dismiss(animated: true, completion: nil)
     }
 
     func failed() {
