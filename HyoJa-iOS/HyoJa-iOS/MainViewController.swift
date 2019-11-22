@@ -73,7 +73,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     
     @IBAction func QRscan(_ sender: UIButton){
         let isReserved = seatNo.text
-        if(isReserved == "--"){
+        if(isReserved != "--"){
             let alert = UIAlertController(title: "예약 확인 실패", message: "예약을 먼저 하세요", preferredStyle: UIAlertController.Style.alert)
             let cancle = UIAlertAction(title: "확인", style: UIAlertAction.Style.cancel)
             alert.addAction(cancle)
