@@ -11,12 +11,23 @@ import UIKit
 class ReserveViewController: UIViewController {
     
     //let seats = "++++++++ㅕㅑ/__________/000_00_000/000_00_000/____00____/____00____/000_00_000/000_00_000/____00____/____00____/000____000/000____000/____00____/____00____/000_00_000/000_00_000/____00____/____00____/000_00_000/000_00_000/__________/--------ㅓㅏ/"
-    let seats = "++++++++ㅕㅑ/000_00_000/000_00_000/____00____/____00____/000_00_000/000_00_000/____00____/____00____/000____000/000____000/____00____/____00____/000_00_000/000_00_000/____00____/____00____/000_00_000/000_00_000/--------ㅓㅑ/"
+    let seats = "___+++++ㅕㅑ/000_00_000/000_00_000/____00____/____00____/000_00_000/000_00_000/____00____/____00____/000____000/000____000/____00____/____00____/000_00_000/000_00_000/____00____/____00____/000_00_000/000_00_000/--------ㅓㅑ/"
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let cancleButton = UIButton(frame: CGRect(x:30, y:50, width: 100, height: 20))
+        cancleButton.backgroundColor = .red
+        cancleButton.layer.cornerRadius = 10
+        cancleButton.setTitle("Cancle", for: .normal)
+        cancleButton.addTarget(self, action: #selector(returnMain(_:)), for: .touchUpInside)
+        view.addSubview(cancleButton)
 
         seat_info_request("http://13.124.28.135/getSeatsData.php")
+    }
+    
+    @IBAction func returnMain(_ sender: UIButton){
+        self.dismiss(animated: true, completion: nil)
     }
 
     func seat_info_request(_ url:String)
