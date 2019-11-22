@@ -55,7 +55,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         
         seatReserve.layer.cornerRadius = 10
         QRscaner.layer.cornerRadius = 10
-        //reserveCancle.layer.cornerRadius = 10
+        reserveCancle.layer.cornerRadius = 10
         reserveExtension.layer.cornerRadius = 10
         Logout.layer.cornerRadius = 10
     }

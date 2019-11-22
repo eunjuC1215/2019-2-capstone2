@@ -157,6 +157,7 @@
                     <connections>
                         <outlet property="Logout" destination="COB-GJ-5P7" id="rjX-KD-LWv"/>
                         <outlet property="QRscaner" destination="EU1-IC-W5t" id="mXS-Gx-CXT"/>
+                        <outlet property="reserveCancle" destination="tj4-zc-Ee4" id="rts-NB-wtj"/>
                         <outlet property="reserveExtension" destination="YOe-Ek-jVa" id="ySt-Yf-pTb"/>
                         <outlet property="seatNo" destination="PVn-UK-Cb5" id="aAh-kX-hmy"/>
                         <outlet property="seatReserve" destination="STA-DR-TN5" id="84K-dj-d2T"/>
