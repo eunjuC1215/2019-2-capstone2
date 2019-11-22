@@ -29,6 +29,69 @@ class ReserveViewController: UIViewController {
     @IBAction func returnMain(_ sender: UIButton){
         self.dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func alreadyUsed(_ sender: UIButton){
+        let alert = UIAlertController(title: "예약 불가", message: "사용중인 좌석입니다.", preferredStyle: UIAlertController.Style.alert)
+        let cancle = UIAlertAction(title: "확인", style: UIAlertAction.Style.cancel)
+        alert.addAction(cancle)
+        self.present(alert, animated: false)
+    }
+    
+    @IBAction func alreadyReserved(_ sender: UIButton){
+        let alert = UIAlertController(title: "예약 불가", message: "예약된 좌석입니다.", preferredStyle: UIAlertController.Style.alert)
+        let cancle = UIAlertAction(title: "확인", style: UIAlertAction.Style.cancel)
+        alert.addAction(cancle)
+        self.present(alert, animated: false)
+    }
+    
+    @IBAction func reserve(_ sender: seatBtn){
+        let alert = UIAlertController(title: "예약 하시겠습니까?", message: "", preferredStyle: UIAlertController.Style.alert)
+        let enter = UIAlertAction(title:"예약", style: UIAlertAction.Style.default){
+            (action) in
+            var student_no = ""
+            if let UserID = UserDefaults.standard.string(forKey: "id"){
+                student_no = UserID
+                print(student_no)
+            }
+            
+            self.seat_reserve_request("http://13.124.28.135/reserve.php", student_no: student_no ,seat_no: sender.cnt ?? "0")
+            self.dismiss(animated: true, completion: nil)
+        }
+        let cancle = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel)
+        alert.addAction(cancle)
+        alert.addAction(enter)
+        self.present(alert, animated: false)
+    }
+    
+    func seat_reserve_request(_ url:String, student_no:String, seat_no:String){
+        let url:NSURL = NSURL(string: url)!
+        let session = URLSession.shared
+
+        let request = NSMutableURLRequest(url: url as URL)
+        request.httpMethod = "POST"
+
+        let paramString = "student_no="+student_no+"&seat_no="+seat_no+"&reserve_opt=1"
+        request.httpBody = paramString.data(using: String.Encoding.utf8)
+
+        let task = session.dataTask(with: request as URLRequest) {
+            (
+            data, response, error) in
+
+            guard let _:NSData = data as NSData?, let _:URLResponse = response, error == nil else {
+                 print(error?.localizedDescription ?? "No data")
+                return
+            }
+
+            if let dataString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            {
+                if(dataString as String == "Success"){
+                    print("OK")
+                }
+            }
+        }
+        
+        task.resume()
+    }
 
     func seat_info_request(_ url:String)
     {
@@ -69,19 +132,25 @@ class ReserveViewController: UIViewController {
         
         for seat in self.seats{
             if seat == "0"{ //seat
-                   let label = UILabel(frame: CGRect(x: _x, y: _y, width: 30, height: 20))
-                   label.textAlignment = .center
-                   label.text = String(cnt)
+                   let btn = seatBtn(frame: CGRect(x: _x, y: _y, width: 30, height: 20))
+                   //btn.textAlignment = .center
+                btn.setTitle(String(cnt), for: .normal)
                    if(seatInfo[idx] == "1"){
-                       label.backgroundColor = UIColor.darkGray
+                       btn.backgroundColor = UIColor.darkGray
+                    btn.addTarget(self, action: #selector(alreadyReserved(_:)), for: .touchUpInside)
+
                    }
                    else if seatInfo[idx] == "2"{
-                       label.backgroundColor = UIColor.red
+                       btn.backgroundColor = UIColor.red
+                    btn.addTarget(self, action: #selector(alreadyUsed(_:)), for: .touchUpInside)
                    }
                    else{
-                    label.backgroundColor = UIColor.green
+                    btn.backgroundColor = UIColor.green
+                    let seat_no = String(cnt)
+                    btn.cnt = seat_no
+                    btn.addTarget(self, action: #selector(reserve(_:)), for:.touchUpInside)
                     }
-                   self.view.addSubview(label)
+                   self.view.addSubview(btn)
                    cnt += 1
                    _x += 31
                    _y += 0
@@ -139,4 +208,8 @@ class ReserveViewController: UIViewController {
         }
         
     }
+}
+
+class seatBtn: UIButton {
+    var cnt: String?
 }
