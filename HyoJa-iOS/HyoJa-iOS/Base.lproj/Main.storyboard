@@ -84,7 +84,7 @@
                                     <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 </state>
                                 <connections>
-                                    <action selector="TouchReserve:" destination="cPO-lW-Dz5" eventType="touchUpInside" id="vdG-dI-GKC"/>
+                                    <action selector="Reserve:" destination="cPO-lW-Dz5" eventType="touchUpInside" id="RMG-Xa-prJ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EU1-IC-W5t">

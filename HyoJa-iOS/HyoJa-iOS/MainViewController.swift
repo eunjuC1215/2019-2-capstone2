@@ -61,7 +61,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        SeatNo.text = String(UserDefaults.standard.string(forKey: "seat_no") ?? "@@" )
+        SeatNo.text = String(UserDefaults.standard.string(forKey: "seat_no") ?? "--" )
     }
     
     // MARK: @IBAction
@@ -72,6 +72,11 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
             let cancle = UIAlertAction(title: "확인", style: UIAlertAction.Style.cancel)
             alert.addAction(cancle)
             self.present(alert, animated: false)
+        }
+        else{
+            let reservePage = self.storyboard?.instantiateViewController(identifier: "Reserve")
+            reservePage?.modalPresentationStyle = .fullScreen
+            self.present(reservePage!, animated: true, completion: nil)
         }
     }
     
@@ -118,12 +123,6 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         let loginPage = self.storyboard?.instantiateViewController(identifier: "Login")
         loginPage?.modalPresentationStyle = .fullScreen
         self.present(loginPage!, animated: true, completion: nil)
-    }
-
-    @IBAction func TouchReserve(_ sender: UIButton) {
-        let reservePage = self.storyboard?.instantiateViewController(identifier: "Reserve")
-        reservePage?.modalPresentationStyle = .fullScreen
-        self.present(reservePage!, animated: true, completion: nil)
     }
     
     @IBAction func cancle(){
