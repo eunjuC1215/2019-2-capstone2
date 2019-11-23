@@ -12,8 +12,8 @@ import MobileCoreServices
 class MainViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     // MARK: @IBOUTLET
-    @IBOutlet var seatNo: UITextView!
-    @IBOutlet var timer: UITextView!
+    @IBOutlet weak var SeatNo: UILabel!
+    @IBOutlet var Timer: UILabel!
     @IBOutlet var seatReserve: UIButton!
     @IBOutlet var QRscaner: UIButton!
     @IBOutlet var reserveCancle: UIButton!
@@ -60,9 +60,13 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         Logout.layer.cornerRadius = 10
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        SeatNo.text = String(UserDefaults.standard.string(forKey: "seat_no") ?? "--" )
+    }
+    
     // MARK: @IBAction
     @IBAction func Reserve(_ sender: UIButton){
-        let isReserved = seatNo.text
+        let isReserved = SeatNo.text
         if(isReserved != "--"){
             let alert = UIAlertController(title: "예약 실패", message: "예약 되어 있습니다.", preferredStyle: UIAlertController.Style.alert)
             let cancle = UIAlertAction(title: "확인", style: UIAlertAction.Style.cancel)
@@ -72,7 +76,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     }
     
     @IBAction func QRscan(_ sender: UIButton){
-        let isReserved = seatNo.text
+        let isReserved = SeatNo.text
         if(isReserved != "--"){
             let alert = UIAlertController(title: "예약 확인 실패", message: "예약을 먼저 하세요", preferredStyle: UIAlertController.Style.alert)
             let cancle = UIAlertAction(title: "확인", style: UIAlertAction.Style.cancel)
@@ -86,17 +90,21 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     }
     
     @IBAction func ReserveCancle(_ sender: UIButton){
-        let isReserved = seatNo.text
+        let isReserved = SeatNo.text
         if(isReserved == "--"){
             let alert = UIAlertController(title: "좌석 반납 실패", message: "예약을 먼저 하세요", preferredStyle: UIAlertController.Style.alert)
             let cancle = UIAlertAction(title: "확인", style: UIAlertAction.Style.cancel)
             alert.addAction(cancle)
             self.present(alert, animated: false)
         }
+        else{
+            UserDefaults.standard.removeObject(forKey: "seat_no")
+            viewWillAppear(true)
+        }
     }
     
     @IBAction func ReserveExtension(_ sender: UIButton){
-        let isReserved = seatNo.text
+        let isReserved = SeatNo.text
         if(isReserved == "--"){
             let alert = UIAlertController(title: "좌석 연장 실패", message: "예약을 먼저 하세요", preferredStyle: UIAlertController.Style.alert)
             let cancle = UIAlertAction(title: "확인", style: UIAlertAction.Style.cancel)

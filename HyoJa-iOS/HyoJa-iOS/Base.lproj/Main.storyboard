@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -74,14 +74,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="-- : --" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="6bS-PM-e7j">
-                                <rect key="frame" x="109" y="195" width="157" height="87"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="STA-DR-TN5">
                                 <rect key="frame" x="20" y="490" width="165" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
@@ -147,27 +139,39 @@
                                     <action selector="ReserveExtension:" destination="cPO-lW-Dz5" eventType="touchUpInside" id="cmt-qU-HuZ"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="--" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="PVn-UK-Cb5">
-                                <rect key="frame" x="156" y="102" width="62" height="85"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oaB-3v-0R0" userLabel="SeatNo">
+                                <rect key="frame" x="163" y="108" width="48" height="66"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="55"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-- : --" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EEI-UZ-Ybk" userLabel="Timer">
+                                <rect key="frame" x="126" y="208" width="122" height="60"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="qgA-PL-RF4" firstAttribute="trailing" secondItem="oaB-3v-0R0" secondAttribute="trailing" constant="164" id="0Jh-iH-B0G"/>
+                            <constraint firstItem="EEI-UZ-Ybk" firstAttribute="top" secondItem="oaB-3v-0R0" secondAttribute="bottom" constant="34" id="Spr-BQ-yvU"/>
+                            <constraint firstItem="EEI-UZ-Ybk" firstAttribute="leading" secondItem="qgA-PL-RF4" secondAttribute="leading" constant="126" id="W4Q-yb-DnF"/>
+                            <constraint firstItem="oaB-3v-0R0" firstAttribute="top" secondItem="qgA-PL-RF4" secondAttribute="top" constant="64" id="ZNA-5y-2sf"/>
+                            <constraint firstItem="qgA-PL-RF4" firstAttribute="trailing" secondItem="EEI-UZ-Ybk" secondAttribute="trailing" constant="127" id="ao6-Y6-PeQ"/>
+                            <constraint firstItem="oaB-3v-0R0" firstAttribute="leading" secondItem="qgA-PL-RF4" secondAttribute="leading" constant="163" id="vhc-e5-EXv"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="qgA-PL-RF4"/>
                     </view>
                     <navigationItem key="navigationItem" id="egM-uI-wgf"/>
                     <connections>
                         <outlet property="Logout" destination="COB-GJ-5P7" id="rjX-KD-LWv"/>
                         <outlet property="QRscaner" destination="EU1-IC-W5t" id="mXS-Gx-CXT"/>
+                        <outlet property="SeatNo" destination="oaB-3v-0R0" id="AYd-Of-KWD"/>
+                        <outlet property="Timer" destination="EEI-UZ-Ybk" id="G2b-15-NIT"/>
                         <outlet property="reserveCancle" destination="tj4-zc-Ee4" id="rts-NB-wtj"/>
                         <outlet property="reserveExtension" destination="YOe-Ek-jVa" id="ySt-Yf-pTb"/>
-                        <outlet property="seatNo" destination="PVn-UK-Cb5" id="aAh-kX-hmy"/>
                         <outlet property="seatReserve" destination="STA-DR-TN5" id="84K-dj-d2T"/>
-                        <outlet property="timer" destination="6bS-PM-e7j" id="yIB-qi-7WJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ci9-4y-fd2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

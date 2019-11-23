@@ -64,6 +64,7 @@ class ReserveViewController: UIViewController {
     }
     
     func seat_reserve_request(_ url:String, student_no:String, seat_no:String){
+        var done: Bool! = false
         let url:NSURL = NSURL(string: url)!
         let session = URLSession.shared
 
@@ -85,12 +86,17 @@ class ReserveViewController: UIViewController {
             if let dataString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
             {
                 if(dataString as String == "Success"){
-                    print("OK")
+                    done = true
                 }
             }
         }
         
         task.resume()
+        repeat {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
+        } while !done
+        
+        UserDefaults.standard.set(seat_no, forKey: "seat_no")
     }
 
     func seat_info_request(_ url:String)
