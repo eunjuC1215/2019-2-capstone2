@@ -61,7 +61,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        SeatNo.text = String(UserDefaults.standard.string(forKey: "seat_no") ?? "--" )
+        SeatNo.text = String(UserDefaults.standard.string(forKey: "seat_no") ?? "@@" )
     }
     
     // MARK: @IBAction
@@ -98,8 +98,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
             self.present(alert, animated: false)
         }
         else{
-            UserDefaults.standard.removeObject(forKey: "seat_no")
-            viewWillAppear(true)
+            cancle()
         }
     }
     
@@ -125,5 +124,60 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         let reservePage = self.storyboard?.instantiateViewController(identifier: "Reserve")
         reservePage?.modalPresentationStyle = .fullScreen
         self.present(reservePage!, animated: true, completion: nil)
+    }
+    
+    @IBAction func cancle(){
+        let alert = UIAlertController(title: "반납 하시겠습니까?", message: "", preferredStyle: UIAlertController.Style.alert)
+        let enter = UIAlertAction(title:"반납", style: UIAlertAction.Style.default){
+            (action) in
+            var student_id = ""
+            if let id = UserDefaults.standard.string(forKey: "id"){
+                student_id = id
+            }
+            
+            self.seat_reserve_request("http://13.124.28.135/reserve.php", student_no: student_id ,seat_no: "NULL"
+                , option: "0")
+            self.viewWillAppear(true)
+        }
+        let cancle = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel)
+        alert.addAction(cancle)
+        alert.addAction(enter)
+        self.present(alert, animated: false)
+    }
+    
+    func seat_reserve_request(_ url:String, student_no:String, seat_no:String, option:String){
+        var done: Bool! = false
+        let url:NSURL = NSURL(string: url)!
+        let session = URLSession.shared
+
+        let request = NSMutableURLRequest(url: url as URL)
+        request.httpMethod = "POST"
+
+        let paramString = "student_no="+student_no+"&seat_no="+seat_no+"&reserve_opt="+option
+        request.httpBody = paramString.data(using: String.Encoding.utf8)
+
+        let task = session.dataTask(with: request as URLRequest) {
+            (
+            data, response, error) in
+
+            guard let _:NSData = data as NSData?, let _:URLResponse = response, error == nil else {
+                 print(error?.localizedDescription ?? "No data")
+                return
+            }
+
+            if let dataString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            {
+                if(dataString as String == "Success"){
+                    done = true
+                }
+            }
+        }
+        
+        task.resume()
+        repeat {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
+        } while !done
+        
+        UserDefaults.standard.set("--", forKey: "seat_no")
     }
 }

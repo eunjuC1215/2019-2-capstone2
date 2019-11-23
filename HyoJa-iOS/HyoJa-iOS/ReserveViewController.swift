@@ -54,7 +54,7 @@ class ReserveViewController: UIViewController {
                 print(student_no)
             }
             
-            self.seat_reserve_request("http://13.124.28.135/reserve.php", student_no: student_no ,seat_no: sender.cnt ?? "0")
+            self.seat_reserve_request("http://13.124.28.135/reserve.php", student_no: student_no ,seat_no: sender.cnt ?? "0", option: "1")
             self.dismiss(animated: true, completion: nil)
         }
         let cancle = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel)
@@ -63,7 +63,7 @@ class ReserveViewController: UIViewController {
         self.present(alert, animated: false)
     }
     
-    func seat_reserve_request(_ url:String, student_no:String, seat_no:String){
+    func seat_reserve_request(_ url:String, student_no:String, seat_no:String, option:String){
         var done: Bool! = false
         let url:NSURL = NSURL(string: url)!
         let session = URLSession.shared
@@ -71,7 +71,7 @@ class ReserveViewController: UIViewController {
         let request = NSMutableURLRequest(url: url as URL)
         request.httpMethod = "POST"
 
-        let paramString = "student_no="+student_no+"&seat_no="+seat_no+"&reserve_opt=1"
+        let paramString = "student_no="+student_no+"&seat_no="+seat_no+"&reserve_opt="+option
         request.httpBody = paramString.data(using: String.Encoding.utf8)
 
         let task = session.dataTask(with: request as URLRequest) {
