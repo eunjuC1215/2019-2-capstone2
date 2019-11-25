@@ -146,7 +146,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-- : --" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EEI-UZ-Ybk" userLabel="Timer">
-                                <rect key="frame" x="126" y="208" width="122" height="60"/>
+                                <rect key="frame" x="77" y="208" width="221" height="60"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -155,11 +155,11 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="qgA-PL-RF4" firstAttribute="trailing" secondItem="oaB-3v-0R0" secondAttribute="trailing" constant="164" id="0Jh-iH-B0G"/>
+                            <constraint firstItem="EEI-UZ-Ybk" firstAttribute="leading" secondItem="qgA-PL-RF4" secondAttribute="leading" constant="77" id="Sfb-z8-GKh"/>
                             <constraint firstItem="EEI-UZ-Ybk" firstAttribute="top" secondItem="oaB-3v-0R0" secondAttribute="bottom" constant="34" id="Spr-BQ-yvU"/>
-                            <constraint firstItem="EEI-UZ-Ybk" firstAttribute="leading" secondItem="qgA-PL-RF4" secondAttribute="leading" constant="126" id="W4Q-yb-DnF"/>
                             <constraint firstItem="oaB-3v-0R0" firstAttribute="top" secondItem="qgA-PL-RF4" secondAttribute="top" constant="64" id="ZNA-5y-2sf"/>
-                            <constraint firstItem="qgA-PL-RF4" firstAttribute="trailing" secondItem="EEI-UZ-Ybk" secondAttribute="trailing" constant="127" id="ao6-Y6-PeQ"/>
                             <constraint firstItem="oaB-3v-0R0" firstAttribute="leading" secondItem="qgA-PL-RF4" secondAttribute="leading" constant="163" id="vhc-e5-EXv"/>
+                            <constraint firstItem="qgA-PL-RF4" firstAttribute="trailing" secondItem="EEI-UZ-Ybk" secondAttribute="trailing" constant="77" id="xaX-jH-Ngy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qgA-PL-RF4"/>
                     </view>
@@ -168,10 +168,10 @@
                         <outlet property="Logout" destination="COB-GJ-5P7" id="rjX-KD-LWv"/>
                         <outlet property="QRscaner" destination="EU1-IC-W5t" id="mXS-Gx-CXT"/>
                         <outlet property="SeatNo" destination="oaB-3v-0R0" id="AYd-Of-KWD"/>
-                        <outlet property="Timer" destination="EEI-UZ-Ybk" id="G2b-15-NIT"/>
                         <outlet property="reserveCancle" destination="tj4-zc-Ee4" id="rts-NB-wtj"/>
                         <outlet property="reserveExtension" destination="YOe-Ek-jVa" id="ySt-Yf-pTb"/>
                         <outlet property="seatReserve" destination="STA-DR-TN5" id="84K-dj-d2T"/>
+                        <outlet property="timeDown" destination="EEI-UZ-Ybk" id="u9J-Se-Mvw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ci9-4y-fd2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

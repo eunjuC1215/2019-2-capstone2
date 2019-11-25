@@ -97,6 +97,7 @@ class ReserveViewController: UIViewController {
         } while !done
         
         UserDefaults.standard.set(seat_no, forKey: "seat_no")
+        UserDefaults.standard.set(1, forKey: "state")
     }
 
     func seat_info_request(_ url:String)
