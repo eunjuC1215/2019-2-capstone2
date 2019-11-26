@@ -176,7 +176,11 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     @objc func timeLimit(){
         if time > 0{
             time -= 1
-            timeDown.text = "\(time/60):\(time%60)"
+            var min = String(time/60)
+            var sec = String(time%60)
+            if(time/60 < 10) {min="0"+min}
+            if(time%60 < 10) {sec="0"+sec}
+            timeDown.text = "\(min):\(sec)"
         }else{
             var student_id = ""
             if let id = UserDefaults.standard.string(forKey: "id"){
