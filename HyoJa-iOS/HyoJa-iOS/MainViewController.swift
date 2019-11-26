@@ -20,43 +20,13 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     @IBOutlet var reserveExtension: UIButton!
     @IBOutlet var Logout: UIButton!
     
-    let imagePicker: UIImagePickerController! = UIImagePickerController()
-    var captureImage: UIImage!
-    var flagImageSave = false
-    
-    
+    // MARK: Var
     var time = 0
     var timer = Timer()
     var startTimer = false
     var reserve_info : [String] = []
     var startTime = ""
     var state:String = "0"
-    
-    @IBAction func CaptureImageFromCamera(_ sender:UIButton){
-        if(UIImagePickerController.isSourceTypeAvailable(.camera)){
-            flagImageSave = true
-            
-            imagePicker.delegate = self
-            imagePicker.sourceType = .camera
-            imagePicker.mediaTypes = [kUTTypeImage as String]
-            imagePicker.allowsEditing = false
-            
-            present(imagePicker,animated: true, completion: nil)
-        } else {
-            myAlert("Camera inaccessible", message: "Application cannot access the camera.")
-        }
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    func myAlert(_ title: String, message: String){
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        let action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
-        alert.addAction(action)
-        self.present(alert, animated: true, completion: nil)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -140,7 +110,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         self.present(loginPage!, animated: true, completion: nil)
     }
     
-    @IBAction func cancle(){
+    func cancle(){
         let alert = UIAlertController(title: "반납 하시겠습니까?", message: "", preferredStyle: UIAlertController.Style.alert)
         let enter = UIAlertAction(title:"반납", style: UIAlertAction.Style.default){
             (action) in
@@ -162,6 +132,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         self.present(alert, animated: false)
     }
     
+    // MARK: Timer
     func timeLimitStart(){
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timeLimit),
                                      userInfo:nil, repeats: true)
@@ -211,6 +182,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         }
     }
     
+    // MARK: Server Request
     func seat_reserve_request(_ url:String, student_no:String, seat_no:String, option:String){
         var done: Bool! = false
         let url:NSURL = NSURL(string: url)!
