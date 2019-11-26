@@ -275,7 +275,12 @@ public class MainActivity extends AppCompatActivity {
                     }else{
                         int m = (int)millisUntilFinished / 60000;
                         int s = ((int)millisUntilFinished - m*60000)/1000;
-                        time.setText(m+":"+s);
+                        String min = String.valueOf(m);
+                        String sec = String.valueOf(s);
+
+                        if(m < 10) min = "0"+m;
+                        if(s < 10) sec = "0"+s;
+                        time.setText(min+":"+sec);
                         if(m == 10 && s == 0){
                             createNotification();
                         }
