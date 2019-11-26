@@ -137,22 +137,27 @@ class ReserveViewController: UIViewController {
         var _x = 50
         var _y = 50
         
+        
+        let img_seat_available = #imageLiteral(resourceName: "seat_available")
+        let img_seat_booked = #imageLiteral(resourceName: "seat_booked")
+        let img_seat_reserved = #imageLiteral(resourceName: "seat_reserved")
+        
         for seat in self.seats{
             if seat == "0"{ //seat
-                   let btn = seatBtn(frame: CGRect(x: _x, y: _y, width: 30, height: 20))
+                   let btn = seatBtn(frame: CGRect(x: _x, y: _y, width: 30, height: 30))
                    //btn.textAlignment = .center
                 btn.setTitle(String(cnt), for: .normal)
                    if(seatInfo[idx] == "1"){
-                       btn.backgroundColor = UIColor.darkGray
+                    btn.setBackgroundImage(img_seat_booked, for: .normal)
                     btn.addTarget(self, action: #selector(alreadyReserved(_:)), for: .touchUpInside)
 
                    }
                    else if seatInfo[idx] == "2"{
-                       btn.backgroundColor = UIColor.red
+                    btn.setBackgroundImage(img_seat_reserved, for: .normal)
                     btn.addTarget(self, action: #selector(alreadyUsed(_:)), for: .touchUpInside)
                    }
                    else{
-                    btn.backgroundColor = UIColor.green
+                    btn.setBackgroundImage(img_seat_available, for: .normal)
                     let seat_no = String(cnt)
                     btn.cnt = seat_no
                     btn.addTarget(self, action: #selector(reserve(_:)), for:.touchUpInside)
@@ -169,7 +174,7 @@ class ReserveViewController: UIViewController {
                 _y += 41
             }
             else if seat == "+"{ //wall
-                let label = UILabel(frame: CGRect(x: _x, y: _y, width: 30, height: 20))
+                let label = UILabel(frame: CGRect(x: _x, y: _y, width: 30, height: 30))
                 label.textAlignment = .center
                 label.backgroundColor = UIColor.darkGray
                 self.view.addSubview(label)
@@ -177,7 +182,7 @@ class ReserveViewController: UIViewController {
                 _y += 0
             }
             else if seat == "-"{ //glass
-                let label = UILabel(frame: CGRect(x: _x, y: _y, width: 30, height: 20))
+                let label = UILabel(frame: CGRect(x: _x, y: _y, width: 30, height: 30))
                 label.textAlignment = .center
                 label.backgroundColor = UIColor.systemTeal
                 self.view.addSubview(label)
@@ -185,7 +190,7 @@ class ReserveViewController: UIViewController {
                 _y += 0
             }
             else if seat == "ㅕ"{ //glass
-                let label = UILabel(frame: CGRect(x: _x, y: _y, width: 30, height: 20))
+                let label = UILabel(frame: CGRect(x: _x, y: _y, width: 30, height: 30))
                 label.textAlignment = .right
                 label.text = String("뒷")
                 self.view.addSubview(label)
@@ -193,7 +198,7 @@ class ReserveViewController: UIViewController {
                 _y += 0
             }
             else if seat == "ㅓ"{ //glass
-                let label = UILabel(frame: CGRect(x: _x, y: _y, width: 30, height: 20))
+                let label = UILabel(frame: CGRect(x: _x, y: _y, width: 30, height: 30))
                 label.textAlignment = .right
                 label.text = String("앞")
                 self.view.addSubview(label)
@@ -201,7 +206,7 @@ class ReserveViewController: UIViewController {
                 _y += 0
             }
             else if seat == "ㅑ"{ //glass
-                let label = UILabel(frame: CGRect(x: _x, y: _y, width: 30, height: 20))
+                let label = UILabel(frame: CGRect(x: _x, y: _y, width: 30, height: 30))
                 label.textAlignment = .left
                 label.text = String("문")
                 self.view.addSubview(label)
