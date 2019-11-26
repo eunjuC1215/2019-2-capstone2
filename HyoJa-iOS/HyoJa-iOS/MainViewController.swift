@@ -170,7 +170,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         startTimer = false
         timer.invalidate()
         time = 0
-        timeDown.text = "--"
+        timeDown.text = "--:--"
     }
     
     @objc func timeLimit(){
@@ -178,7 +178,15 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
             time -= 1
             timeDown.text = "\(time/60):\(time%60)"
         }else{
-            timeLimitStop()
+            var student_id = ""
+            if let id = UserDefaults.standard.string(forKey: "id"){
+                student_id = id
+            }
+            self.seat_reserve_request("http://13.124.28.135/reserve.php", student_no:student_id ,seat_no: "NULL", option: "0")
+            UserDefaults.standard.set("--", forKey: "seat_no")
+            self.timeLimitStop()
+            self.time = 0
+            self.viewWillAppear(true)
         }
     }
     
