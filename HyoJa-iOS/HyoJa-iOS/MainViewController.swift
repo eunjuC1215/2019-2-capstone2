@@ -171,6 +171,14 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         }
         get_reserve_info("http://13.124.28.135/isReserve.php", student_no: student_id)
         
+        let reserve_time = reserve_info[1]
+        let start_time = reserve_time.components(separatedBy: " ")
+        let start_min = Int(((start_time[1]).components(separatedBy: ":"))[1])!
+        let start_sec = Int(((start_time[1]).components(separatedBy: ":"))[2])!
+        print(start_min)
+        print(start_sec)
+        print(start_min*60+start_sec)
+        
         let date = Date(timeIntervalSinceNow: 32400) //한국시간으로 변경
         print(date)
         let dateFormatter = DateFormatter()
@@ -183,16 +191,8 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         print(now_sec)
         print(now_min*60+now_sec)
         
-        let reserve_time = reserve_info[1]
-        let start_time = reserve_time.components(separatedBy: " ")
-        let start_min = Int(((start_time[1]).components(separatedBy: ":"))[1])!
-        let start_sec = Int(((start_time[1]).components(separatedBy: ":"))[2])!
-        print(start_min)
-        print(start_sec)
-        print(start_min*60+start_sec)
-        
         time = 300
-        time -= (now_min*60+now_sec - start_min*60+start_sec)
+        time -= ((now_min*60+now_sec) - (start_min*60+start_sec))
     }
     
     func timeLimitStop(){
