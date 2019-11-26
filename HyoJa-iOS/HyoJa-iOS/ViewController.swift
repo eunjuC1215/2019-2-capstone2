@@ -25,6 +25,10 @@ class ViewController: UIViewController {
         LoginButton.layer.cornerRadius = 10
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+          self.view.endEditing(true)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         var id: String
         var pw: String
