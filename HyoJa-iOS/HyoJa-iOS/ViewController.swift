@@ -10,7 +10,7 @@ import UIKit
 import CryptoSwift
 
 class ViewController: UIViewController {
-
+    
     // MARK: IBOUTLET
     @IBOutlet var ID: UITextField!
     @IBOutlet var PW: UITextField!
@@ -25,8 +25,11 @@ class ViewController: UIViewController {
         LoginButton.layer.cornerRadius = 10
     }
     
+    @IBAction func didEndOnExit(sender: AnyObject) {
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
-          self.view.endEditing(true)
+        self.view.endEditing(true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -41,7 +44,7 @@ class ViewController: UIViewController {
             data_request("http://13.124.28.135/check.php", id: ID.text!, pw: PW.text!)
         }
     }
-
+    
     @IBAction func touchUpLoginButton(_ sender: UIButton){
         data_request("http://13.124.28.135/check.php", id: ID.text!, pw: PW.text!)
     }
@@ -58,24 +61,24 @@ class ViewController: UIViewController {
         
         let url:NSURL = NSURL(string: url)!
         let session = URLSession.shared
-
+        
         var isLogin: Bool! = false
         var done: Bool! = false
         let request = NSMutableURLRequest(url: url as URL)
         request.httpMethod = "POST"
-
+        
         let paramString = "id="+id+"&pw="+cipher
         request.httpBody = paramString.data(using: String.Encoding.utf8)
-
+        
         let task = session.dataTask(with: request as URLRequest) {
             (
             data, response, error) in
-
+            
             guard let _:NSData = data as NSData?, let _:URLResponse = response, error == nil else {
-                 print(error?.localizedDescription ?? "No data")
+                print(error?.localizedDescription ?? "No data")
                 return
             }
-
+            
             if let dataString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
             {
                 if(dataString as String == "Success"){

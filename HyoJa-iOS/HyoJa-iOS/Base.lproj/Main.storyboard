@@ -16,21 +16,37 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Login_id" translatesAutoresizingMaskIntoConstraints="NO" id="DBX-UU-4Yr">
-                                <rect key="frame" x="20" y="374" width="70" height="70"/>
+                                <rect key="frame" x="20" y="332" width="70" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Login_pw" translatesAutoresizingMaskIntoConstraints="NO" id="Zbf-Dh-Q95">
-                                <rect key="frame" x="20" y="453" width="70" height="70"/>
+                                <rect key="frame" x="20" y="411" width="70" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rMK-Kk-0Ee">
-                                <rect key="frame" x="98" y="469" width="257" height="38"/>
+                                <rect key="frame" x="98" y="427" width="257" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
+                                <connections>
+                                    <action selector="didEndOnExitWithSender:" destination="BYZ-38-t0r" eventType="editingDidEndOnExit" id="jbj-rO-9ig"/>
+                                </connections>
                             </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Io5-Ub-IX0">
+                                <rect key="frame" x="98" y="348" width="257" height="38"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" textContentType="username"/>
+                                <connections>
+                                    <action selector="didEndOnExitWithSender:" destination="BYZ-38-t0r" eventType="editingDidEndOnExit" id="mo7-IJ-pjO"/>
+                                </connections>
+                            </textField>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="KMULogo" translatesAutoresizingMaskIntoConstraints="NO" id="ig9-YE-0kQ">
+                                <rect key="frame" x="112" y="95" width="151" height="169"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <button opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vh5-pf-edl">
-                                <rect key="frame" x="132" y="647" width="111" height="55"/>
+                                <rect key="frame" x="132" y="648" width="111" height="55"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
@@ -42,16 +58,6 @@
                                     <action selector="touchUpLoginButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PH0-d2-JnW"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Io5-Ub-IX0">
-                                <rect key="frame" x="98" y="390" width="257" height="38"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <textInputTraits key="textInputTraits" textContentType="username"/>
-                            </textField>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="KMULogo" translatesAutoresizingMaskIntoConstraints="NO" id="ig9-YE-0kQ">
-                                <rect key="frame" x="112" y="123" width="151" height="169"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
