@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -185,64 +185,6 @@
             </objects>
             <point key="canvasLocation" x="1076" y="126.35467980295567"/>
         </scene>
-        <!--Reserve View Controller-->
-        <scene sceneID="qlJ-sO-Saz">
-            <objects>
-                <viewController storyboardIdentifier="Reserve" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wLu-Jx-6i2" customClass="ReserveViewController" customModule="HyoJa_iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="Hsu-b5-Uam">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="1300"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cKM-IB-ZAs">
-                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7vX-Be-YoD">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="734"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="시작" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7zS-lt-M2h">
-                                                <rect key="frame" x="166" y="8" width="30" height="21"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="MkG-NH-fy9" firstAttribute="trailing" secondItem="7vX-Be-YoD" secondAttribute="trailing" id="0iO-Rf-y9h"/>
-                                    <constraint firstItem="7vX-Be-YoD" firstAttribute="leading" secondItem="MkG-NH-fy9" secondAttribute="leading" id="cIR-Dc-HPd"/>
-                                    <constraint firstItem="7vX-Be-YoD" firstAttribute="height" secondItem="cKM-IB-ZAs" secondAttribute="height" multiplier="0.174387" id="eOF-sg-KeU"/>
-                                    <constraint firstItem="7vX-Be-YoD" firstAttribute="top" secondItem="MkG-NH-fy9" secondAttribute="top" id="iJf-62-6NW"/>
-                                    <constraint firstItem="MkG-NH-fy9" firstAttribute="bottom" secondItem="7vX-Be-YoD" secondAttribute="bottom" id="ztI-ju-zg8"/>
-                                </constraints>
-                                <viewLayoutGuide key="contentLayoutGuide" id="kuI-jZ-L52"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="MkG-NH-fy9"/>
-                            </scrollView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="끝" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUY-8O-KKP">
-                                <rect key="frame" x="172" y="1245" width="15" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="cKM-IB-ZAs" firstAttribute="leading" secondItem="Ubn-B6-h9f" secondAttribute="leading" id="KCW-YG-ayx"/>
-                            <constraint firstItem="Ubn-B6-h9f" firstAttribute="bottom" secondItem="cKM-IB-ZAs" secondAttribute="bottom" id="W6W-hw-0Pu"/>
-                            <constraint firstItem="Ubn-B6-h9f" firstAttribute="trailing" secondItem="cKM-IB-ZAs" secondAttribute="trailing" id="bhH-Lo-zrI"/>
-                            <constraint firstItem="cKM-IB-ZAs" firstAttribute="top" secondItem="Ubn-B6-h9f" secondAttribute="top" id="yT2-iC-rka"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="Ubn-B6-h9f"/>
-                    </view>
-                    <size key="freeformSize" width="375" height="1300"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="AbX-Dj-rG8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1893.5999999999999" y="126.35467980295567"/>
-        </scene>
         <!--Scan View Controller-->
         <scene sceneID="jEf-6Z-WmG">
             <objects>
@@ -257,6 +199,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Fd-bZ-K8G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2706" y="127"/>
+        </scene>
+        <!--Reserve View Controller-->
+        <scene sceneID="l2O-gB-CxJ">
+            <objects>
+                <viewController storyboardIdentifier="Reserve" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aCl-yS-Ics" customClass="ReserveViewController" customModule="HyoJa_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lkM-rc-lyj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="hhf-84-Rss"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GOM-tj-ahV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1897" y="126"/>
         </scene>
     </scenes>
     <resources>

@@ -15,14 +15,6 @@ class ReserveViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let cancleButton = UIButton(frame: CGRect(x:30, y:50, width: 100, height: 20))
-        cancleButton.backgroundColor = .red
-        cancleButton.layer.cornerRadius = 10
-        cancleButton.setTitle("Cancle", for: .normal)
-        cancleButton.addTarget(self, action: #selector(returnMain(_:)), for: .touchUpInside)
-        view.addSubview(cancleButton)
-
         seat_info_request("http://13.124.28.135/getSeatsData.php")
     }
     
@@ -137,10 +129,22 @@ class ReserveViewController: UIViewController {
         var _x = 50
         var _y = 50
         
-        
         let img_seat_available = #imageLiteral(resourceName: "seat_available")
         let img_seat_booked = #imageLiteral(resourceName: "seat_booked")
         let img_seat_reserved = #imageLiteral(resourceName: "seat_reserved")
+        
+        // ScrollView 생성
+        let scrollView = UIScrollView(frame: view.frame)
+        // ScrollView content Size
+        scrollView.contentSize=CGSize(width: 1000, height: 1000)
+        
+        // Cancle Button
+        let cancleButton = UIButton(frame: CGRect(x:30, y:50, width: 100, height: 20))
+        cancleButton.backgroundColor = .red
+        cancleButton.layer.cornerRadius = 10
+        cancleButton.setTitle("Cancle", for: .normal)
+        cancleButton.addTarget(self, action: #selector(returnMain(_:)), for: .touchUpInside)
+        scrollView.addSubview(cancleButton)
         
         for seat in self.seats{
             if seat == "0"{ //seat
@@ -162,7 +166,8 @@ class ReserveViewController: UIViewController {
                     btn.cnt = seat_no
                     btn.addTarget(self, action: #selector(reserve(_:)), for:.touchUpInside)
                     }
-                   self.view.addSubview(btn)
+                   scrollView.addSubview(btn)
+                
                    cnt += 1
                    _x += 31
                    _y += 0
@@ -177,7 +182,7 @@ class ReserveViewController: UIViewController {
                 let label = UILabel(frame: CGRect(x: _x, y: _y, width: 30, height: 30))
                 label.textAlignment = .center
                 label.backgroundColor = UIColor.darkGray
-                self.view.addSubview(label)
+                scrollView.addSubview(label)
                 _x += 31
                 _y += 0
             }
@@ -185,7 +190,7 @@ class ReserveViewController: UIViewController {
                 let label = UILabel(frame: CGRect(x: _x, y: _y, width: 30, height: 30))
                 label.textAlignment = .center
                 label.backgroundColor = UIColor.systemTeal
-                self.view.addSubview(label)
+                scrollView.addSubview(label)
                 _x += 31
                 _y += 0
             }
@@ -193,7 +198,7 @@ class ReserveViewController: UIViewController {
                 let label = UILabel(frame: CGRect(x: _x, y: _y, width: 30, height: 30))
                 label.textAlignment = .right
                 label.text = String("뒷")
-                self.view.addSubview(label)
+                scrollView.addSubview(label)
                 _x += 31
                 _y += 0
             }
@@ -201,7 +206,7 @@ class ReserveViewController: UIViewController {
                 let label = UILabel(frame: CGRect(x: _x, y: _y, width: 30, height: 30))
                 label.textAlignment = .right
                 label.text = String("앞")
-                self.view.addSubview(label)
+                scrollView.addSubview(label)
                 _x += 31
                 _y += 0
             }
@@ -209,7 +214,7 @@ class ReserveViewController: UIViewController {
                 let label = UILabel(frame: CGRect(x: _x, y: _y, width: 30, height: 30))
                 label.textAlignment = .left
                 label.text = String("문")
-                self.view.addSubview(label)
+                scrollView.addSubview(label)
                 _x += 31
                 _y += 0
             }
@@ -218,6 +223,7 @@ class ReserveViewController: UIViewController {
                 _y += 0
             }
         }
+        self.view.addSubview(scrollView)
         
     }
 }
