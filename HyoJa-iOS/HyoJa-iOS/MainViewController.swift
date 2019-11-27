@@ -41,8 +41,15 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     override func viewWillAppear(_ animated: Bool) {
         self.SeatNo.text = String(UserDefaults.standard.string(forKey: "seat_no") ?? "--" )
         self.state = UserDefaults.standard.string(forKey: "state") ?? "0"
-        if(SeatNo.text != "--" && state == "1"){
-            timeLimitStart()
+        if(SeatNo.text != "--" && state == "1")
+        {
+            var student_id = ""
+                    if let id = UserDefaults.standard.string(forKey: "id"){
+                        student_id = id
+                    }
+                    get_reserve_info("http://13.124.28.135/isReserve.php", student_no: student_id)
+            print(reserve_info)
+            timeLimitStart(reserve_time: reserve_info[1])
         }
         else{
             timeLimitStop()
@@ -133,16 +140,16 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     }
     
     // MARK: Timer
-    func timeLimitStart(){
+    func timeLimitStart(reserve_time:String){
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timeLimit),
                                      userInfo:nil, repeats: true)
-        var student_id = ""
-        if let id = UserDefaults.standard.string(forKey: "id"){
-            student_id = id
-        }
-        get_reserve_info("http://13.124.28.135/isReserve.php", student_no: student_id)
+//        var student_id = ""
+//        if let id = UserDefaults.standard.string(forKey: "id"){
+//            student_id = id
+//        }
+//        get_reserve_info("http://13.124.28.135/isReserve.php", student_no: student_id)
         
-        let reserve_time = reserve_info[1]
+        //let reserve_time = reserve_info[1]
         let start_time = reserve_time.components(separatedBy: " ")
         let start_min = Int(((start_time[1]).components(separatedBy: ":"))[1])!
         let start_sec = Int(((start_time[1]).components(separatedBy: ":"))[2])!
@@ -253,6 +260,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
             if let dataString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
             {
                 self.reserve_info = (dataString as String).components(separatedBy: "_")
+                print(self.reserve_info)
                 done = true
             }
         }

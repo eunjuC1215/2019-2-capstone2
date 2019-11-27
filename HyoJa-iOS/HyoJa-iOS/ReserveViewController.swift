@@ -10,8 +10,8 @@ import UIKit
 
 class ReserveViewController: UIViewController {
     
-    //let seats = "++++++++ㅕㅑ/__________/000_00_000/000_00_000/____00____/____00____/000_00_000/000_00_000/____00____/____00____/000____000/000____000/____00____/____00____/000_00_000/000_00_000/____00____/____00____/000_00_000/000_00_000/__________/--------ㅓㅏ/"
-    let seats = "___+++++ㅕㅑ/000_00_000/000_00_000/____00____/____00____/000_00_000/000_00_000/____00____/____00____/000____000/000____000/____00____/____00____/000_00_000/000_00_000/____00____/____00____/000_00_000/000_00_000/--------ㅓㅑ/"
+    let seats = "___+++++ㅕㅑ/__________/000_00_000/000_00_000/____00____/____00____/000_00_000/000_00_000/____00____/____00____/000____000/000____000/____00____/____00____/000_00_000/000_00_000/____00____/____00____/000_00_000/000_00_000/__________/--------ㅓㅑ/"
+    //let seats = "___+++++ㅕㅑ/000_00_000/000_00_000/____00____/____00____/000_00_000/000_00_000/____00____/____00____/000____000/000____000/____00____/____00____/000_00_000/000_00_000/____00____/____00____/000_00_000/000_00_000/--------ㅓㅑ/"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -136,10 +136,10 @@ class ReserveViewController: UIViewController {
         // ScrollView 생성
         let scrollView = UIScrollView(frame: view.frame)
         // ScrollView content Size
-        scrollView.contentSize=CGSize(width: 1000, height: 1000)
+        scrollView.contentSize=CGSize(width: 600, height: 1200)
         
         // Cancle Button
-        let cancleButton = UIButton(frame: CGRect(x:30, y:50, width: 100, height: 20))
+        let cancleButton = UIButton(frame: CGRect(x:40, y:50, width: 150, height: 50))
         cancleButton.backgroundColor = .red
         cancleButton.layer.cornerRadius = 10
         cancleButton.setTitle("Cancle", for: .normal)
@@ -148,7 +148,7 @@ class ReserveViewController: UIViewController {
         
         for seat in self.seats{
             if seat == "0"{ //seat
-                   let btn = seatBtn(frame: CGRect(x: _x, y: _y, width: 30, height: 30))
+                   let btn = seatBtn(frame: CGRect(x: _x, y: _y, width: 50, height: 50))
                    //btn.textAlignment = .center
                 btn.setTitle(String(cnt), for: .normal)
                    if(seatInfo[idx] == "1"){
@@ -169,57 +169,57 @@ class ReserveViewController: UIViewController {
                    scrollView.addSubview(btn)
                 
                    cnt += 1
-                   _x += 31
+                   _x += 51
                    _y += 0
                    idx = seatInfo.index(idx, offsetBy: 1)
                 
             }
             else if seat == "/"{ //line end
                 _x = 50
-                _y += 41
+                _y += 51
             }
             else if seat == "+"{ //wall
-                let label = UILabel(frame: CGRect(x: _x, y: _y, width: 30, height: 30))
+                let label = UILabel(frame: CGRect(x: _x, y: _y, width: 50, height: 50))
                 label.textAlignment = .center
                 label.backgroundColor = UIColor.darkGray
                 scrollView.addSubview(label)
-                _x += 31
+                _x += 51
                 _y += 0
             }
             else if seat == "-"{ //glass
-                let label = UILabel(frame: CGRect(x: _x, y: _y, width: 30, height: 30))
+                let label = UILabel(frame: CGRect(x: _x, y: _y, width: 50, height: 50))
                 label.textAlignment = .center
                 label.backgroundColor = UIColor.systemTeal
                 scrollView.addSubview(label)
-                _x += 31
+                _x += 51
                 _y += 0
             }
             else if seat == "ㅕ"{ //glass
-                let label = UILabel(frame: CGRect(x: _x, y: _y, width: 30, height: 30))
+                let label = UILabel(frame: CGRect(x: _x, y: _y, width: 50, height: 50))
                 label.textAlignment = .right
                 label.text = String("뒷")
                 scrollView.addSubview(label)
-                _x += 31
+                _x += 51
                 _y += 0
             }
             else if seat == "ㅓ"{ //glass
-                let label = UILabel(frame: CGRect(x: _x, y: _y, width: 30, height: 30))
+                let label = UILabel(frame: CGRect(x: _x, y: _y, width: 50, height: 50))
                 label.textAlignment = .right
                 label.text = String("앞")
                 scrollView.addSubview(label)
-                _x += 31
+                _x += 51
                 _y += 0
             }
             else if seat == "ㅑ"{ //glass
-                let label = UILabel(frame: CGRect(x: _x, y: _y, width: 30, height: 30))
+                let label = UILabel(frame: CGRect(x: _x, y: _y, width: 50, height: 50))
                 label.textAlignment = .left
                 label.text = String("문")
                 scrollView.addSubview(label)
-                _x += 31
+                _x += 51
                 _y += 0
             }
             else{ //"_" blank
-                _x += 31
+                _x += 51
                 _y += 0
             }
         }
