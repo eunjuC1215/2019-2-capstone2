@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 import MobileCoreServices
 
 class MainViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
@@ -92,8 +93,25 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         if time > 0{
             time -= 1
             timeDown.text = "\(time/60):\(time%60)"
+            print(time)
+            if(time == 601){
+                schedulNotification(inSeconds: 1, string: "예약 시간이 10분 남았습니다", completion: {success in
+                    if success{
+                        print("성공")
+                    }else{
+                        print("error")
+                    }
+                })
+            }
         }
         else{
+            schedulNotification(inSeconds: 0.1, string: "좌석이 반납되었습니다", completion: {success in
+                if success{
+                    print("성공")
+                }else{
+                    print("error")
+                }
+            })
             timeLimitStop()
         }
     }
@@ -122,7 +140,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     
     @IBAction func QRscan(_ sender: UIButton){
         let isReserved = SeatNo.text
-        if(isReserved != "--"){
+        if(isReserved == "--"){
             let alert = UIAlertController(title: "예약 확인 실패", message: "예약을 먼저 하세요", preferredStyle: UIAlertController.Style.alert)
             let cancle = UIAlertAction(title: "확인", style: UIAlertAction.Style.cancel)
             alert.addAction(cancle)
@@ -184,6 +202,18 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         alert.addAction(cancle)
         alert.addAction(enter)
         self.present(alert, animated: false)
+    }
+    
+    // MARK: Notification
+    func schedulNotification(inSeconds: TimeInterval, string:String, completion: @escaping(_ Success: Bool)->()){
+        let notification = UNMutableNotificationContent()
+        notification.title = "HyoJa"
+        notification.body = string
+        notification.sound = UNNotificationSound.default
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval:inSeconds, repeats: false)
+        let request = UNNotificationRequest(identifier: "10min", content: notification, trigger: trigger)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
     
     // MARK: Server Request
