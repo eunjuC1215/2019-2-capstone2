@@ -13,10 +13,7 @@ import MobileCoreServices
 class MainViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     var taskID: UIBackgroundTaskIdentifier?
-    var mTimer: Timer?
     var number: Int = 0
-
-    
     
     // MARK: @IBOUTLET
     @IBOutlet weak var SeatNo: UILabel!
@@ -35,7 +32,6 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         seatReserve.layer.cornerRadius = 10
         QRscaner.layer.cornerRadius = 10
         reserveCancle.layer.cornerRadius = 10
@@ -52,40 +48,50 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         }))
         
         self.SeatNo.text = String(UserDefaults.standard.string(forKey: "seat_no") ?? "--" )
-        timelimit = self.isReserve("http://13.124.28.135/isReserve.php", student_no: "20143078")
         let isReserved = SeatNo.text
-        if(isReserved != "--" && timelimit.count == 4){
-            print("1")
-            //if(startTimer == false){
-                //print("2")
-                //startTimer = true
-                makeTime()
-                timeLimitStart()
-            //}
+        if(isReserved != "--"){
+            print("돌아옴")
+            makeTime()
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(MainViewController.timeLimit), userInfo: nil, repeats: true)
         }
     }
     
     func makeTime(){
-        var reservetime = timelimit[2]
-        var res_min:Int = Int(reservetime.components(separatedBy: ":")[1]) ?? 0
-        var res_sec:Int = Int(reservetime.components(separatedBy: ":")[2]) ?? 0
-        
-        
-        var nowtime = Date(timeIntervalSinceNow: 32400)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let dateString = dateFormatter.string(from: nowtime)
-        var now_min:Int = Int(dateString.components(separatedBy: ":")[1]) ?? 0
-        var now_sec:Int = Int(dateString.components(separatedBy: ":")[2]) ?? 0
-        
-        var min = res_min - now_min
-        var sec = res_sec - now_sec
-        self.time = min*60 + sec
-        print(self.time)
+        timelimit = self.isReserve("http://13.124.28.135/isReserve.php", student_no: "20163170")
+        if(timelimit.count == 4){
+            let option = timelimit[3]
+            let reservetime = timelimit[2].components(separatedBy: " ")[1]
+            let res_hour:Int = Int(reservetime.components(separatedBy: ":")[0]) ?? 0
+            let res_min:Int = Int(reservetime.components(separatedBy: ":")[1]) ?? 0
+            let res_sec:Int = Int(reservetime.components(separatedBy: ":")[2]) ?? 0
+            
+            
+            let nowtime = Date()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "HH:mm:ss"
+            let dateString = dateFormatter.string(from: nowtime)
+            let now_hour:Int = Int(dateString.components(separatedBy: ":")[0]) ?? 0
+            let now_min:Int = Int(dateString.components(separatedBy: ":")[1]) ?? 0
+            let now_sec:Int = Int(dateString.components(separatedBy: ":")[2]) ?? 0
+            
+            let hour = res_hour - now_hour
+            let min = res_min - now_min
+            let sec = res_sec - now_sec
+            
+            if(option == "1"){
+                self.time = min * 60 + sec
+            }
+            else if(option == "2"){
+                self.time = hour*60*60 + min*60 + sec
+            }
+        }
+        else{
+            self.time = 0
+        }
     }
     
     func timeLimitStart(){
-        //makeTime()
+        makeTime()
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(MainViewController.timeLimit), userInfo: nil, repeats: true)
     }
     

@@ -104,7 +104,11 @@ class QRScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
             found(code: stringValue)
         }
 
-        dismiss(animated: true)
+        //dismiss(animated: true)
+        
+        let mainPage = self.storyboard?.instantiateViewController(identifier: "Main")
+        mainPage?.modalPresentationStyle = .fullScreen
+        self.present(mainPage!, animated: true, completion: nil)
     }
 
     func found(code: String) {
@@ -115,6 +119,7 @@ class QRScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     
     func reserve_request(_ url:String, id:String, seat_no:String)
     {
+        var done = false
         let url:NSURL = NSURL(string: url)!
         let session = URLSession.shared
         
@@ -134,10 +139,15 @@ class QRScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
             }
 
             if NSString(data: data!, encoding: String.Encoding.utf8.rawValue) != nil
-            {}
+            {
+                done = true
+            }
         }
         
         task.resume()
+        repeat {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
+        } while !done
     }
     
     override var prefersStatusBarHidden: Bool {
