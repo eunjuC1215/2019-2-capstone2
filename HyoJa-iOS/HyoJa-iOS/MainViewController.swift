@@ -119,6 +119,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     func timeLimitStop(){
         //startTimer = false
         timer.invalidate()
+        SeatNo.text = "--"
         timeDown.text = "--:--"
     }
     
