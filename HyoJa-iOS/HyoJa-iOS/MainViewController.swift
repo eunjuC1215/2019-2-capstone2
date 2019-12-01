@@ -21,6 +21,10 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     @IBOutlet var Logout: UIButton!
     
     // MARK: Var
+    var timelimit : [String] = []
+    var time = 0
+    var timer = Timer()
+    var startTimer = false //타이머 중복 방지용
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +38,56 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     
     override func viewWillAppear(_ animated: Bool) {
         self.SeatNo.text = String(UserDefaults.standard.string(forKey: "seat_no") ?? "--" )
+        timelimit = self.isReserve("http://13.124.28.135/isReserve.php", student_no: "20143078")
+        let isReserved = SeatNo.text
+        if(isReserved != "--" && timelimit.count == 4){
+            print("1")
+            //if(startTimer == false){
+                //print("2")
+                //startTimer = true
+                timeLimitStart()
+            //}
+        }
+    }
+    
+    func makeTime(){
+        var reservetime = timelimit[2]
+        var res_min:Int = Int(reservetime.components(separatedBy: ":")[1]) ?? 0
+        var res_sec:Int = Int(reservetime.components(separatedBy: ":")[2]) ?? 0
+        
+        
+        var nowtime = Date(timeIntervalSinceNow: 32400)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let dateString = dateFormatter.string(from: nowtime)
+        var now_min:Int = Int(dateString.components(separatedBy: ":")[1]) ?? 0
+        var now_sec:Int = Int(dateString.components(separatedBy: ":")[2]) ?? 0
+        
+        var min = res_min - now_min
+        var sec = res_sec - now_sec
+        self.time = min*60 + sec
+        print(self.time)
+    }
+    
+    func timeLimitStart(){
+        makeTime()
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(MainViewController.timeLimit), userInfo: nil, repeats: true)
+    }
+    
+    @objc func timeLimit(){
+        if time > 0{
+            time -= 1
+            timeDown.text = "\(time/60):\(time%60)"
+        }
+        else{
+            timeLimitStop()
+        }
+    }
+    
+    func timeLimitStop(){
+        //startTimer = false
+        timer.invalidate()
+        timeDown.text = "--:--"
     }
     
     // MARK: @IBAction
@@ -109,6 +163,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
             self.seat_reserve_request("http://13.124.28.135/reserve.php", student_no: student_id ,seat_no: "NULL"
                 , option: "0")
             UserDefaults.standard.set("--", forKey: "seat_no")
+            self.timeLimitStop()
             self.viewWillAppear(true)
         }
         let cancle = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel)
@@ -152,4 +207,44 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         } while !done
     }
     
+    func isReserve(_ url:String, student_no:String) -> [String]{
+        var done: Bool! = false
+        var timelimit: [String] = []
+        let url:NSURL = NSURL(string: url)!
+        let session = URLSession.shared
+
+        let request = NSMutableURLRequest(url: url as URL)
+        request.httpMethod = "POST"
+
+        let paramString = "student_no="+student_no
+        request.httpBody = paramString.data(using: String.Encoding.utf8)
+
+        let task = session.dataTask(with: request as URLRequest) {
+            (
+            data, response, error) in
+
+            guard let _:NSData = data as NSData?, let _:URLResponse = response, error == nil else {
+                 print(error?.localizedDescription ?? "No data")
+                return
+            }
+
+            if let dataString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            {
+                if(dataString != "0"){
+                    timelimit = (dataString as String).components(separatedBy: "_")
+                }
+                else{
+                    timelimit.append(dataString as String)
+                }
+                done = true
+            }
+        }
+        
+        task.resume()
+        repeat {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
+        } while !done
+        
+        return timelimit
+    }
 }

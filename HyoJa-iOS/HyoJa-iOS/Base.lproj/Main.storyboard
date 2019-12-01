@@ -185,7 +185,7 @@
                         <outlet property="reserveCancle" destination="tj4-zc-Ee4" id="rts-NB-wtj"/>
                         <outlet property="reserveExtension" destination="YOe-Ek-jVa" id="ySt-Yf-pTb"/>
                         <outlet property="seatReserve" destination="STA-DR-TN5" id="84K-dj-d2T"/>
-                        <outlet property="timeDown" destination="EEI-UZ-Ybk" id="u9J-Se-Mvw"/>
+                        <outlet property="timeDown" destination="EEI-UZ-Ybk" id="hYx-HY-xoI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ci9-4y-fd2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
