@@ -11,6 +11,12 @@ import MobileCoreServices
 
 class MainViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
+    var taskID: UIBackgroundTaskIdentifier?
+    var mTimer: Timer?
+    var number: Int = 0
+
+    
+    
     // MARK: @IBOUTLET
     @IBOutlet weak var SeatNo: UILabel!
     @IBOutlet var timeDown: UILabel!
@@ -37,6 +43,13 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        taskID = UIApplication.shared.beginBackgroundTask(expirationHandler: ({
+            UIApplication.shared.endBackgroundTask(self.taskID!)
+            self.taskID = .invalid
+            
+        }))
+        
         self.SeatNo.text = String(UserDefaults.standard.string(forKey: "seat_no") ?? "--" )
         timelimit = self.isReserve("http://13.124.28.135/isReserve.php", student_no: "20143078")
         let isReserved = SeatNo.text
@@ -45,6 +58,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
             //if(startTimer == false){
                 //print("2")
                 //startTimer = true
+                makeTime()
                 timeLimitStart()
             //}
         }
@@ -70,7 +84,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     }
     
     func timeLimitStart(){
-        makeTime()
+        //makeTime()
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(MainViewController.timeLimit), userInfo: nil, repeats: true)
     }
     
