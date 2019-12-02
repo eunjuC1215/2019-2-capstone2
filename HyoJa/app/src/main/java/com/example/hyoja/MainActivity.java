@@ -282,13 +282,14 @@ public class MainActivity extends AppCompatActivity {
                         if(s < 10) sec = "0"+s;
                         time.setText(min+":"+sec);
                         if(m == 10 && s == 0){
-                            createNotification();
+                            createNotification("효자시스템 : 좌석 연장", "예약 시간 10분 남았습니다.");
                         }
                     }
                 }
 
                 @Override
                 public void onFinish() {
+                    createNotification("효자시스템 : 좌석 반납", "좌석이 반납되었습니다.");
                     seatNo.setText("--");
                     time.setText("--:--");
                     sendReserveInfo sendReserveInfo = new sendReserveInfo();
@@ -301,13 +302,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void createNotification() {
+    private void createNotification(String title, String text) {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default");
 
         builder.setSmallIcon(R.mipmap.ic_launcher);
-        builder.setContentTitle("효자시스템 : 좌석 연장");
-        builder.setContentText("예약 시간 10분 남았습니다.");
+        builder.setContentTitle(title);
+        builder.setContentText(text);
         builder.setDefaults(1);
         builder.setColor(Color.RED);
         // 사용자가 탭을 클릭하면 자동 제거
