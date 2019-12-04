@@ -57,7 +57,9 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     }
     
     func makeTime(){
-        timelimit = self.isReserve("http://13.124.28.135/isReserve.php", student_no: "20163170")
+        let UserId = UserDefaults.standard.string(forKey: "id")
+        timelimit = self.isReserve("http://13.124.28.135/isReserve.php", student_no: UserId!)
+        print(timelimit.count)
         if(timelimit.count == 4){
             let option = timelimit[3]
             let reservetime = timelimit[2].components(separatedBy: " ")[1]
@@ -80,6 +82,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
             
             if(option == "1"){
                 self.time = min * 60 + sec
+                print(self.time)
             }
             else if(option == "2"){
                 self.time = hour*60*60 + min*60 + sec
@@ -88,6 +91,8 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         else{
             self.time = 0
         }
+        print("time: ")
+        print(self.time)
     }
     
     func timeLimitStart(){
@@ -98,8 +103,12 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     @objc func timeLimit(){
         if time > 0{
             time -= 1
-            timeDown.text = "\(time/60):\(time%60)"
-            print(time)
+            var min = String(time/60)
+            var sec = String(time%60)
+            if(time/60 < 10) {min="0"+min}
+            if(time%60 < 10) {sec="0"+sec}
+            timeDown.text = "\(min):\(sec)"
+
             if(time == 601){
                 schedulNotification(inSeconds: 1, string: "예약 시간이 10분 남았습니다", completion: {success in
                     if success{
@@ -183,6 +192,9 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     }
     
     @IBAction func Logout(_ sender: UIButton){
+        if(timer.isValid){
+            timer.invalidate()
+        }
         UserDefaults.standard.removeObject(forKey: "id")
         UserDefaults.standard.removeObject(forKey: "pw")
         let loginPage = self.storyboard?.instantiateViewController(identifier: "Login")
