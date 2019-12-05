@@ -212,7 +212,7 @@ public class ReserveActivity extends AppCompatActivity implements View.OnClickLi
                 layoutParams.setMargins(seatGaping, seatGaping, seatGaping, seatGaping);
                 view.setLayoutParams(layoutParams);
                 //view.setBackgroundColor(Color.TRANSPARENT);
-                view.setBackgroundResource(R.drawable.ic_wall_front);
+                view.setBackgroundResource(R.drawable.ic_wall_back);
                 view.setText("");
                 layout.addView(view);
             }

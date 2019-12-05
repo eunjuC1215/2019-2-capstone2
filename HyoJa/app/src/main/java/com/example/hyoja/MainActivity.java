@@ -326,6 +326,7 @@ public class MainActivity extends AppCompatActivity {
         // id값은
         // 정의해야하는 각 알림의 고유한 int값
         notificationManager.notify(1, builder.build());
+        PushUtils.releaseWakeLock();
     }
 
     public class sendReserveInfo extends AsyncTask<String, Void, String> {
