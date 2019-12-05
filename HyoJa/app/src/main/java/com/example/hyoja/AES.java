@@ -11,8 +11,8 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class AES {
 
-    private static final String KEY = "안알려조";
-    private static final String IV = "안알려조";
+    private static final String KEY = "안알려줌";
+    private static final String IV = "안알려줌";
     private static final String ALGORITHM = "AES";
     private static final String TRANSFORMATION = "AES/CBC/PKCS5Padding";
     private  Cipher cipher;
