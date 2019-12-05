@@ -30,6 +30,8 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     var timer = Timer()
     var startTimer = false //타이머 중복 방지용
     
+    let refreshControl = UIRefreshControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         seatReserve.layer.cornerRadius = 10
@@ -189,6 +191,24 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
             alert.addAction(cancle)
             self.present(alert, animated: false)
         }
+        else{
+            if (time > 10*60) {  //10분 이상 남았을 때
+                let alert = UIAlertController(title: "좌석 연장 실패", message: "10분 전부터 연장 가능합니다", preferredStyle: UIAlertController.Style.alert)
+                let cancle = UIAlertAction(title: "확인", style: UIAlertAction.Style.cancel)
+                alert.addAction(cancle)
+                self.present(alert, animated: false)
+            }
+            else{
+                var student_id = ""
+                if let id = UserDefaults.standard.string(forKey: "id"){
+                    student_id = id
+                }
+                self.requestExtend("http://13.124.28.135/extend.php", student_no: student_id )
+                let refresh = self.storyboard?.instantiateViewController(identifier: "Main")
+                refresh?.modalPresentationStyle = .fullScreen
+                self.present(refresh!, animated: true, completion: nil)
+            }
+        }
     }
     
     @IBAction func Logout(_ sender: UIButton){
@@ -310,4 +330,39 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         
         return timelimit
     }
+    
+    func requestExtend(_ url:String, student_no:String){
+        var done: Bool! = false
+        let url:NSURL = NSURL(string: url)!
+        let session = URLSession.shared
+
+        let request = NSMutableURLRequest(url: url as URL)
+        request.httpMethod = "POST"
+
+        let paramString = "student_no="+student_no
+        request.httpBody = paramString.data(using: String.Encoding.utf8)
+
+        let task = session.dataTask(with: request as URLRequest) {
+            (
+            data, response, error) in
+
+            guard let _:NSData = data as NSData?, let _:URLResponse = response, error == nil else {
+                 print(error?.localizedDescription ?? "No data")
+                return
+            }
+
+            if let dataString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            {
+                if(dataString as String == "Success"){
+                    done = true
+                }
+            }
+        }
+        
+        task.resume()
+        repeat {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
+        } while !done
+    }
+    
 }
