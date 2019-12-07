@@ -51,8 +51,8 @@ class ViewController: UIViewController {
     
     func data_request(_ url:String, id:String, pw:String)
     {
-        let key = "ahtvnfrpTwlwjdakfahtvnfrpTwl3078"
-        let iv = "ahtvnfrpTwl00000"
+        let key = "ㅇㅇㅇ"
+        let iv = "ㅇㅇㅇ"
         var cipher = ""
         do{
             let aes = try! AES(key: key.bytes, blockMode: CBC(iv: iv.bytes) , padding: .pkcs5)

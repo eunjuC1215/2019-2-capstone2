@@ -61,7 +61,6 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     func makeTime(){
         let UserId = UserDefaults.standard.string(forKey: "id")
         timelimit = self.isReserve("http://13.124.28.135/isReserve.php", student_no: UserId!)
-        print(timelimit.count)
         if(timelimit.count == 4){
             let option = timelimit[3]
             let reservetime = timelimit[2].components(separatedBy: " ")[1]
@@ -78,23 +77,16 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
             let now_min:Int = Int(dateString.components(separatedBy: ":")[1]) ?? 0
             let now_sec:Int = Int(dateString.components(separatedBy: ":")[2]) ?? 0
             
-            let hour = res_hour - now_hour
-            let min = res_min - now_min
-            let sec = res_sec - now_sec
+            let res = res_hour * 3600 + res_min * 60 + res_sec
+            let now = now_hour * 3600 + now_min * 60 + now_sec
+            self.time = res-now
+            print(self.time)
             
-            if(option == "1"){
-                self.time = min * 60 + sec
-                print(self.time)
-            }
-            else if(option == "2"){
-                self.time = hour*60*60 + min*60 + sec
-            }
         }
         else{
             self.time = 0
+            print("time: ")
         }
-        print("time: ")
-        print(self.time)
     }
     
     func timeLimitStart(){
