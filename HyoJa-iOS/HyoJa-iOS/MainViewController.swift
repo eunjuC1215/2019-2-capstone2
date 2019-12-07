@@ -112,15 +112,17 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
                     }
                 })
             }
+            if(time == 1){
+                schedulNotification(inSeconds: 1, string: "좌석이 반납되었습니다", completion: {success in
+                    if success{
+                        print("성공")
+                    }else{
+                        print("error")
+                    }
+                })
+            }
         }
         else{
-            schedulNotification(inSeconds: 0.1, string: "좌석이 반납되었습니다", completion: {success in
-                if success{
-                    print("성공")
-                }else{
-                    print("error")
-                }
-            })
             timeLimitStop()
         }
     }
