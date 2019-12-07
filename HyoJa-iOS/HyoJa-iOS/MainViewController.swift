@@ -112,17 +112,15 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
                     }
                 })
             }
-            if(time == 1){
-                schedulNotification(inSeconds: 1, string: "좌석이 반납되었습니다", completion: {success in
-                    if success{
-                        print("성공")
-                    }else{
-                        print("error")
-                    }
-                })
-            }
         }
         else{
+            schedulNotification(inSeconds: 1, string: "좌석이 반납되었습니다", completion: {success in
+                if success{
+                    print("성공")
+                }else{
+                    print("error")
+                }
+            })
             timeLimitStop()
         }
     }
@@ -130,6 +128,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     func timeLimitStop(){
         //startTimer = false
         timer.invalidate()
+        UserDefaults.standard.set("--", forKey: "seat_no")
         SeatNo.text = "--"
         timeDown.text = "--:--"
     }
