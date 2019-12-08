@@ -21,68 +21,73 @@
         app:layout_constraintVertical_bias="1.0">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/reserve"
-                android:layout_width="360dp"
+                android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginBottom="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:background="#b3d4f5"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/btn_blue"
                 android:text="좌석 예약"
+                android:textColor="#FFFFFF"
                 android:textSize="20sp"
                 tools:layout_editor_absoluteX="23dp"
                 tools:layout_editor_absoluteY="310dp" />
 
             <Button
                 android:id="@+id/scanQR"
-                android:layout_width="360dp"
+                android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="예약 확정"
-                android:textSize="20sp"
-                android:layout_marginBottom="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:background="#b3d4f5"/>
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/btn_blue"
+                android:text="예약 확정"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
 
-        <Button
+            <Button
                 android:id="@+id/reserveCancle"
-                android:layout_width="360dp"
+                android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/btn_blue"
                 android:text="좌석 반납"
-                android:textSize="20sp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="#b3d4f5"/>
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+
 
             <Button
                 android:id="@+id/extend"
-                android:layout_width="360dp"
+                android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="좌석 연장"
-                android:textSize="20sp"
-                android:layout_marginBottom="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:background="#b3d4f5"/>
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/btn_blue"
+                android:text="좌석 연장"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
 
-
-        <Button
-            android:id="@+id/logout"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="로그아웃"
-            android:textSize="20sp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="#b3d4f5"/>
+            <Button
+                android:id="@+id/logout"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/btn_red"
+                android:text="로그아웃"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -90,15 +95,21 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.489">
+
         <TextView
             android:id="@+id/seatNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="30dp"
             android:text="--"
             android:textSize="70sp"
-            android:layout_marginTop="30dp"
             app:layout_constraintBottom_toTopOf="@+id/timeInfo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -109,9 +120,9 @@
             android:id="@+id/timeInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="--:--"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
+            android:text="--:--"
             android:textSize="50sp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
@@ -119,8 +130,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.439" />
     </LinearLayout>
-
-
 
 
 </android.support.constraint.ConstraintLayout>

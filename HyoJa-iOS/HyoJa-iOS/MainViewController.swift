@@ -55,6 +55,15 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
             print("돌아옴")
             makeTime()
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(MainViewController.timeLimit), userInfo: nil, repeats: true)
+        }else{
+            let UserId = UserDefaults.standard.string(forKey: "id")
+            timelimit = self.isReserve("http://13.124.28.135/isReserve.php", student_no: UserId!)
+            if(timelimit[0] != "0"){
+                SeatNo.text = timelimit[0]
+                makeTime()
+                self.time -= 1
+                timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(MainViewController.timeLimit), userInfo: nil, repeats: true)
+            }
         }
     }
     
@@ -97,6 +106,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     @objc func timeLimit(){
         if time > 0{
             time -= 1
+            print(time)
             var min = String(time/60)
             var sec = String(time%60)
             if(time/60 < 10) {min="0"+min}
@@ -114,7 +124,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
             }
         }
         else{
-            schedulNotification(inSeconds: 1, string: "좌석이 반납되었습니다", completion: {success in
+            schedulNotification(inSeconds: 0.1, string: "좌석이 반납되었습니다", completion: {success in
                 if success{
                     print("성공")
                 }else{
